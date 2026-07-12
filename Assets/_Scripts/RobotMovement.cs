@@ -5,17 +5,23 @@ public class RobotMovement : MonoBehaviour
 
     [SerializeField] private Transform ballVisual;
     [SerializeField] private Transform bodyVisual;
+
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float ballRadius = 0.5f;
     [SerializeField] private float rotationSpeed = 360f;
+    [SerializeField] private float maxBodyTilt = 20f;
+    [SerializeField] private float bodyTiltSpeed = 180f;
+
 
     private RobotController controllerScript;
     private Rigidbody robotRigidbody;
+    private Quaternion bodyBaseRotation;
 
     private void Awake()
     {
         robotRigidbody = GetComponent<Rigidbody>();
         controllerScript = GetComponent<RobotController>();
+        bodyBaseRotation = bodyVisual.localRotation;
     }
 
     private void FixedUpdate()
@@ -73,23 +79,28 @@ public class RobotMovement : MonoBehaviour
         Vector2 rotateInput = controllerScript.RotateInput;
         Vector3 rotateDirection = new Vector3(rotateInput.x, 0f, rotateInput.y);
 
-        if (rotateDirection.sqrMagnitude > 0.01f)
+        if (Mathf.Abs(rotateInput.x) > 0.01f)
         {
-            Quaternion targetRotation = Quaternion.LookRotation( //look rotation needs two direction, Forward and Up. Forward is the direction you want to look at, Up is the direction you want to be up.
-                rotateDirection.normalized,
-                Vector3.up
+            float turnAmount =
+                rotateInput.x * rotationSpeed * Time.fixedDeltaTime;
+
+            Quaternion turnRotation = Quaternion.Euler(0f, turnAmount, 0f);
+
+            robotRigidbody.MoveRotation(
+                robotRigidbody.rotation * turnRotation
             );
-
-            Quaternion newRotation = Quaternion.RotateTowards( //from, to, speed
-                robotRigidbody.rotation,
-                targetRotation,
-                rotationSpeed * Time.fixedDeltaTime
-            );
-
-            robotRigidbody.MoveRotation(newRotation);
-
-            //bodyVisual.Rotate(, rollAngle, Space.World);
         }
+
+        float targetTilt = -rotateInput.y * maxBodyTilt;
+
+        Quaternion targetBodyRotation =
+            bodyBaseRotation * Quaternion.Euler(targetTilt, 0f, 0f);
+
+        bodyVisual.localRotation = Quaternion.RotateTowards(
+            bodyVisual.localRotation,
+            targetBodyRotation,
+            bodyTiltSpeed * Time.fixedDeltaTime
+        );
 
         #endregion
 
