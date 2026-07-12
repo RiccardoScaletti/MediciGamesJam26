@@ -8,6 +8,7 @@ public class PlayerAnimation : MonoBehaviour
     //stretch goals: scale speed to input value
 
     private Animator animator;
+    [SerializeField] RobotController robotController;
 
     [SerializeField] private float testFloat;
 
@@ -19,6 +20,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Update()
     {
+        testFloat = robotController.MoveInput.y;
         animator.SetFloat("Direction", testFloat);
     }
 }

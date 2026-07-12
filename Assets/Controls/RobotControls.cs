@@ -109,6 +109,15 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""a8ec1ff6-6d9d-486a-b534-48d800bc7c82"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -221,6 +230,28 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25653b2e-d58e-43ec-91a3-0e61a081966e"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41274d8b-dccf-4042-98cc-aed1dee5e5c4"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -231,6 +262,7 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         m_RobotActions = asset.FindActionMap("RobotActions", throwIfNotFound: true);
         m_RobotActions_Move = m_RobotActions.FindAction("Move", throwIfNotFound: true);
         m_RobotActions_Rotate = m_RobotActions.FindAction("Rotate", throwIfNotFound: true);
+        m_RobotActions_Jump = m_RobotActions.FindAction("Jump", throwIfNotFound: true);
     }
 
     ~@RobotControls()
@@ -313,6 +345,7 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
     private List<IRobotActionsActions> m_RobotActionsActionsCallbackInterfaces = new List<IRobotActionsActions>();
     private readonly InputAction m_RobotActions_Move;
     private readonly InputAction m_RobotActions_Rotate;
+    private readonly InputAction m_RobotActions_Jump;
     /// <summary>
     /// Provides access to input actions defined in input action map "RobotActions".
     /// </summary>
@@ -332,6 +365,10 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "RobotActions/Rotate".
         /// </summary>
         public InputAction @Rotate => m_Wrapper.m_RobotActions_Rotate;
+        /// <summary>
+        /// Provides access to the underlying input action "RobotActions/Jump".
+        /// </summary>
+        public InputAction @Jump => m_Wrapper.m_RobotActions_Jump;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -364,6 +401,9 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
             @Rotate.started += instance.OnRotate;
             @Rotate.performed += instance.OnRotate;
             @Rotate.canceled += instance.OnRotate;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
         }
 
         /// <summary>
@@ -381,6 +421,9 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
             @Rotate.started -= instance.OnRotate;
             @Rotate.performed -= instance.OnRotate;
             @Rotate.canceled -= instance.OnRotate;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
         }
 
         /// <summary>
@@ -435,5 +478,12 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRotate(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Jump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnJump(InputAction.CallbackContext context);
     }
 }

@@ -22,6 +22,8 @@ public class RobotController : MonoBehaviour
 
         controls.RobotActions.Rotate.performed += OnRotate;
         controls.RobotActions.Rotate.canceled += OnRotate;
+
+        controls.RobotActions.Jump.performed += OnJump;
     }
 
     private void OnDisable()
@@ -50,5 +52,11 @@ public class RobotController : MonoBehaviour
     {
         RotateInput = context.ReadValue<Vector2>();
         //Debug.Log("RotateInput: " + RotateInput);
+    }
+
+    private void OnJump(InputAction.CallbackContext context) 
+    {
+        //Debug.Log("Jump!");
+        PlayerPhysics.Instance.LoadPhysicInteraction(PhysicsInteractionManager.instance.interactionsList[(int)physicInteractions.Jump]);
     }
 }
