@@ -206,11 +206,11 @@ Transform:
   m_GameObject: {fileID: 15908096}
   serializedVersion: 2
   m_LocalRotation: {x: 0.1571702, y: -0, z: -0, w: 0.98757154}
-  m_LocalPosition: {x: 0.13, y: 2.23, z: -3.49}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.1625, y: 2.4862502, z: -4.3625}
+  m_LocalScale: {x: 1.25, y: 1.2500001, z: 1.2500001}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2128778948}
+  m_Father: {fileID: 1519808794}
   m_LocalEulerAnglesHint: {x: 18.085, y: 0, z: 0}
 --- !u!114 &15908100
 MonoBehaviour:
@@ -662,7 +662,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.24099994, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 15908099}
   m_Father: {fileID: 2128778948}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1630140991
@@ -811,7 +812,6 @@ Transform:
   m_Children:
   - {fileID: 1519808794}
   - {fileID: 1630140992}
-  - {fileID: 15908099}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2128778949
@@ -843,6 +843,8 @@ MonoBehaviour:
   moveSpeed: 5
   ballRadius: 0.5
   rotationSpeed: 360
+  maxBodyTilt: 20
+  bodyTiltSpeed: 180
 --- !u!54 &2128778951
 Rigidbody:
   m_ObjectHideFlags: 0
