@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CharacterController : MonoBehaviour
+public class RobotController : MonoBehaviour
 {
     private RobotControls controls;
 
@@ -43,10 +43,12 @@ public class CharacterController : MonoBehaviour
     private void OnMove(InputAction.CallbackContext context)
     {
         MoveInput = context.ReadValue<Vector2>();
+        //Debug.Log("MoveInput: " + MoveInput);
     }
 
     private void OnRotate(InputAction.CallbackContext context)
     {
         RotateInput = context.ReadValue<Vector2>();
+        //Debug.Log("RotateInput: " + RotateInput);
     }
 }

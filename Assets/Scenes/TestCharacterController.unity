@@ -205,13 +205,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 15908096}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.8, z: -10}
+  m_LocalRotation: {x: 0.1571702, y: -0, z: -0, w: 0.98757154}
+  m_LocalPosition: {x: 0.13, y: 2.23, z: -3.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 2128778948}
+  m_LocalEulerAnglesHint: {x: 18.085, y: 0, z: 0}
 --- !u!114 &15908100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,7 +364,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.68, y: 2.68, z: 2.68}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -811,6 +811,7 @@ Transform:
   m_Children:
   - {fileID: 1519808794}
   - {fileID: 1630140992}
+  - {fileID: 15908099}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2128778949
@@ -838,8 +839,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallMovement
   ballVisual: {fileID: 1630140992}
+  bodyVisual: {fileID: 1519808794}
   moveSpeed: 5
   ballRadius: 0.5
+  rotationSpeed: 360
 --- !u!54 &2128778951
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -871,7 +874,6 @@ Rigidbody:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 15908099}
   - {fileID: 641136722}
   - {fileID: 223306146}
   - {fileID: 1048428737}
