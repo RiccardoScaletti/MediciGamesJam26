@@ -109,7 +109,9 @@ public class RobotMovement : MonoBehaviour
             bodyTiltSpeed * Time.fixedDeltaTime
         );
 
-        Debug.Log(targetTilt);
+        //Debug.Log(targetTilt);
+
+
 
         //iteration 1
         //find new camera rotation
@@ -127,9 +129,9 @@ public class RobotMovement : MonoBehaviour
             camDirection = -1;
         }
 
-        currentCamTilt += targetTilt * Time.fixedDeltaTime * rotateInput.y * camSpeed*camDirection;
-        currentCamTilt = Mathf.Clamp(currentCamTilt, -targetTilt, targetTilt); ;
-        cameraRoot.localRotation = Quaternion.Euler(currentCamTilt, 0f,0f);
+        currentCamTilt += rotateInput.y * Time.fixedDeltaTime * camSpeed * camDirection;
+        currentCamTilt = Mathf.Clamp(currentCamTilt, -camLimit, camLimit);
+        cameraRoot.localRotation = Quaternion.Euler(currentCamTilt, 0f, 0f);
 
         //if(rotateInput == Vector2.zero)
         //{

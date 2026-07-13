@@ -49,6 +49,8 @@ public class PlayerPhysics : MonoBehaviour
             //Debug.Log("You are falling, "+fallingVelocity.y);
             rb.linearVelocity = new Vector3 (rb.linearVelocity.x, fallingVelocity.y*fallingSpeed, rb.linearVelocity.z);
         }
+
+        Debug.Log(rb.linearVelocity);
     }
 
     public void ApplyForce(Vector3 newDirection, float newMagnitude, ForceMode newForceMode)
