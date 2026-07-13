@@ -6,10 +6,14 @@ public class RobotMovement : MonoBehaviour
     [SerializeField] private Transform ballVisual;
     [SerializeField] private Transform bodyVisual;
     [SerializeField] private Transform cameraRoot;
-    [SerializeField] private float camLimit;
+    [SerializeField] private float camLimitY;
+    [SerializeField] private float camLimitX;
     [SerializeField] private float camSpeed;
-    float currentCamTilt=0;
-    public bool invertCam;
+    float currentCamTiltY=0;
+    public bool invertCamY;
+    float currentCamtiltX = 0;
+    public bool invertCamX;
+    [SerializeField]float turnSpeed;
 
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float ballRadius = 0.5f;
@@ -22,11 +26,53 @@ public class RobotMovement : MonoBehaviour
     private Rigidbody robotRigidbody;
     private Quaternion bodyBaseRotation;
 
+    Vector2 rotateInput;
+
     private void Awake()
     {
         robotRigidbody = GetComponent<Rigidbody>();
         controllerScript = GetComponent<RobotController>();
         bodyBaseRotation = bodyVisual.localRotation;
+    }
+
+    private void Start()
+    {
+        
+    }
+
+    private void Update()
+    {
+        //read input from controller script
+        rotateInput = controllerScript.RotateInput;
+
+        #region camera
+        //follow player 
+        cameraRoot.transform.position = robotRigidbody.transform.position;
+
+        //rotate around player
+        int camDirectionY = 1;
+        if (invertCamY)
+        {
+            camDirectionY = -1;
+        }
+        int camDirectionX = 1;
+        if (invertCamX)
+        {
+            camDirectionX = -1;
+        }
+
+
+        //add camera tilt input into cam pitch
+        currentCamTiltY += rotateInput.y * Time.deltaTime * camSpeed * camDirectionY;
+        currentCamTiltY = Mathf.Clamp(currentCamTiltY, -camLimitY, camLimitY);
+        
+        //add camera tilt input into cam yaw
+        currentCamtiltX += rotateInput.x * Time.deltaTime * camSpeed * camDirectionX;
+        currentCamtiltX += Mathf.Clamp(currentCamtiltX, -camLimitX, camLimitX);
+
+        cameraRoot.localRotation = Quaternion.Euler(currentCamTiltY, currentCamtiltX, 0f);
+
+        #endregion
     }
 
     private void FixedUpdate()
@@ -81,7 +127,7 @@ public class RobotMovement : MonoBehaviour
 
         #region Rotation
         //read inputs
-        Vector2 rotateInput = controllerScript.RotateInput;
+        
         Vector3 rotateDirection = new Vector3(rotateInput.x, 0f, rotateInput.y);
 
         //if inputs are greater than deadzone
@@ -92,9 +138,14 @@ public class RobotMovement : MonoBehaviour
 
             Quaternion turnRotation = Quaternion.Euler(0f, turnAmount, 0f);
 
-            robotRigidbody.MoveRotation(
-                robotRigidbody.rotation * turnRotation
-            );
+            //robotRigidbody.MoveRotation(
+            //    robotRigidbody.rotation * turnRotation
+            //);
+
+            //find difference between player rotation and camera rotation
+            /*Vector3 rotationTarget = cameraRoot.transform.rotation - robotRigidbody.transform.rotation*/
+            float step = turnSpeed * Time.fixedDeltaTime;
+            robotRigidbody.transform.rotation = Quaternion.RotateTowards(transform.rotation, cameraRoot.transform.rotation, step);
         }
 
         //find tilt value
@@ -108,50 +159,9 @@ public class RobotMovement : MonoBehaviour
             targetBodyRotation,
             bodyTiltSpeed * Time.fixedDeltaTime
         );
-
-        //Debug.Log(targetTilt);
-
-
-
-        //iteration 1
-        //find new camera rotation
-        //Quaternion newCameraRotation = cameraRoot.localRotation * Quaternion.Euler(targetTilt, 0f, 0f);
-        //limit rotation in x axis 
-        //float newCameraX = Mathf.Clamp(newCameraRotation.x, -camLimit, camLimit);
-        //newCameraRotation = Quaternion.Euler(new Vector3(newCameraRotation.x, newCameraRotation.y, newCameraRotation.z));
-
-        //apply camera rotation
-        //cameraRoot.localRotation = cameraRoot.localRotation * Quaternion.Euler(targetTilt * Time.fixedDeltaTime, 0f, 0f) ;
-
-        int camDirection = 1;
-        if (invertCam)
-        {
-            camDirection = -1;
-        }
-
-        currentCamTilt += rotateInput.y * Time.fixedDeltaTime * camSpeed * camDirection;
-        currentCamTilt = Mathf.Clamp(currentCamTilt, -camLimit, camLimit);
-        cameraRoot.localRotation = Quaternion.Euler(currentCamTilt, 0f, 0f);
-
-        //if(rotateInput == Vector2.zero)
-        //{
-        //    targetTilt = 0f;
-        //}
-
-        //iteration 2
-        //float newCameraX = cameraRoot.rotation.x + targetTilt * camSpeed * Time.deltaTime;
-        //newCameraX = Mathf.Clamp(newCameraX, -camLimit, camLimit);
-
-        //cameraRoot.Rotate(newCameraX, 0,0);
-
-        //iteration 3
-        //float newCameraX = cameraRoot.rotation.x + targetTilt * camSpeed*Time.fixedDeltaTime;
-        //Debug.Log("before clamp"+newCameraX);
-        //newCameraX = Mathf.Clamp(newCameraX, -targetTilt, targetTilt);
-        //Debug.Log("after clamp" + newCameraX);
-        //cameraRoot.rotation = Quaternion.Euler(newCameraX, cameraRoot.rotation.y, cameraRoot.rotation.z);
-
         #endregion
+
+        
 
     }
 }
