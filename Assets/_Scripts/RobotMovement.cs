@@ -2,29 +2,35 @@ using UnityEngine;
 
 public class RobotMovement : MonoBehaviour
 {
-
+    [Header("References")]
     [SerializeField] private Transform ballVisual;
     [SerializeField] private Transform bodyVisual;
     [SerializeField] private Transform cameraRoot;
     [SerializeField] private float camLimitY;
     [SerializeField] private float camLimitX;
     [SerializeField] private float camSpeed;
+
+    [Header("Movement")]
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float acceleration = 8f;
+    [SerializeField] private float deceleration = 3f;
+
+    [Header("Rotation")]
+    [SerializeField] private float ballRadius = 0.5f;
+    [SerializeField] private float rotationSpeed = 360f;
+    [SerializeField] private float maxBodyTilt = 20f;
+    [SerializeField] private float bodyTiltSpeed = 180f;
+
     float currentCamTiltY=0;
     public bool invertCamY;
     float currentCamtiltX = 0;
     public bool invertCamX;
     [SerializeField]float turnSpeed;
 
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float ballRadius = 0.5f;
-    [SerializeField] private float rotationSpeed = 360f;
-    [SerializeField] private float maxBodyTilt = 20f;
-    [SerializeField] private float bodyTiltSpeed = 180f;
-
-
     private RobotController controllerScript;
     private Rigidbody robotRigidbody;
     private Quaternion bodyBaseRotation;
+    private Vector3 glideVelocity;
 
     Vector2 rotateInput;
 
@@ -33,6 +39,15 @@ public class RobotMovement : MonoBehaviour
         robotRigidbody = GetComponent<Rigidbody>();
         controllerScript = GetComponent<RobotController>();
         bodyBaseRotation = bodyVisual.localRotation;
+
+        Vector3 initialRotation = cameraRoot.localEulerAngles;
+        currentCamTiltY = ToSignedAngle(initialRotation.x);
+        currentCamtiltX = ToSignedAngle(initialRotation.y);
+    }
+
+    private static float ToSignedAngle(float angle)
+    {
+        return angle > 180f ? angle - 360f : angle;
     }
 
     private void Start()
@@ -61,14 +76,13 @@ public class RobotMovement : MonoBehaviour
             camDirectionX = -1;
         }
 
-
         //add camera tilt input into cam pitch
         currentCamTiltY += rotateInput.y * Time.deltaTime * camSpeed * camDirectionY;
         currentCamTiltY = Mathf.Clamp(currentCamTiltY, -camLimitY, camLimitY);
         
         //add camera tilt input into cam yaw
         currentCamtiltX += rotateInput.x * Time.deltaTime * camSpeed * camDirectionX;
-        currentCamtiltX += Mathf.Clamp(currentCamtiltX, -camLimitX, camLimitX);
+        currentCamtiltX = Mathf.Clamp(currentCamtiltX, -camLimitX, camLimitX);
 
         cameraRoot.localRotation = Quaternion.Euler(currentCamTiltY, currentCamtiltX, 0f);
 
@@ -81,15 +95,11 @@ public class RobotMovement : MonoBehaviour
 
         Vector2 moveInput = controllerScript.MoveInput;
 
-        //Vector3 moveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
-        //Vector3 NewbodyForward = robotRigidbody.transform.forward; //this works only if the robot is not tilted
-       
         Vector3 bodyForward = Vector3.ProjectOnPlane(
             robotRigidbody.transform.forward,
             Vector3.up
         ).normalized;
 
-        //this allows the ball to move laterally as well
         Vector3 bodyRight = Vector3.ProjectOnPlane(
             robotRigidbody.transform.right,
             Vector3.up
@@ -99,35 +109,30 @@ public class RobotMovement : MonoBehaviour
             bodyRight * moveInput.x +
             bodyForward * moveInput.y;
 
-        //this allows the ball to move only forward and backward
-        //Vector3 moveDirection =
-        //robotRigidbody.transform.forward * moveInput.y;
+        // The speed we want to eventually reach.
+        Vector3 targetVelocity = moveDirection * moveSpeed;
 
+        // Accelerate faster while pushing input; coast down more slowly on release.
+        float rate = moveDirection.sqrMagnitude > 0.01f
+            ? acceleration
+            : deceleration;
 
-        if (moveDirection.sqrMagnitude > 0.01f) 
-        {
-            moveDirection.Normalize();
+        glideVelocity = Vector3.MoveTowards(
+            glideVelocity,
+            targetVelocity,
+            rate * Time.fixedDeltaTime
+        );
 
-            float speedMultiplier = moveInput.magnitude; //Measures how far the stick is pushed: 0 at rest, roughly 1 at its edge.
-            float distance = moveSpeed * speedMultiplier * Time.fixedDeltaTime;
+        // Move using the manufactured velocity.
+        robotRigidbody.MovePosition(
+            robotRigidbody.position + glideVelocity * Time.fixedDeltaTime
+        );
 
-            // Moves the Player Rigidbody, rather than applying torque to Ball.
-            robotRigidbody.MovePosition(
-                robotRigidbody.position + moveDirection * distance //current position, where you want to go, and how far you want to go in that direction (this frame alone)
-            );
-
-            // Visual rolling only.
-            float rollAngle = (distance / ballRadius) * Mathf.Rad2Deg;
-            Vector3 rollAxis = Vector3.Cross(Vector3.up, moveDirection);
-
-            ballVisual.Rotate(rollAxis, rollAngle, Space.World);
-        }
-       
         #endregion
 
         #region Rotation
         //read inputs
-        
+
         Vector3 rotateDirection = new Vector3(rotateInput.x, 0f, rotateInput.y);
 
         //if inputs are greater than deadzone
