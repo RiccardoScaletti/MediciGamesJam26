@@ -9,7 +9,16 @@ public class PlayerPhysics : MonoBehaviour
 
     [SerializeField] private bool debugActive;
     private Vector3 direction;
-    [SerializeField] private float fallingSpeed;
+    //increase falling speed when you are falling
+    [SerializeField] private float fallingSpeedGrowth;
+    //limit how fast you can fall
+    [SerializeField] private float fallingTerminalVelocity;
+    //limit how many times you are able to jump
+    public GroundChecker groundCheck;
+
+    //move this somewhere better.
+    //have parameter that gives slight wiggle room to input jump when moving off a platform
+    public float coyoteTimer;
 
 
     private void Start()
@@ -35,6 +44,10 @@ public class PlayerPhysics : MonoBehaviour
                 debugScr.StorePlayerPhysicScript(this);
             }
         }
+
+        Instantiate(Resources.Load<GameObject>("CanvasHUD"));
+
+        groundCheck.InitializeScript(this);
     }
 
     private void FixedUpdate()
@@ -42,12 +55,20 @@ public class PlayerPhysics : MonoBehaviour
         //read inputs or update physics here
 
         //speed up linear velocity in y if linear velocity in y is negative.
-
         Vector3 fallingVelocity = new Vector3(0,rb.linearVelocity.y,0);
         if(fallingVelocity.y < -0.1f)
         {
+            groundCheck.isJumping = false;
             //Debug.Log("You are falling, "+fallingVelocity.y);
-            rb.linearVelocity = new Vector3 (rb.linearVelocity.x, fallingVelocity.y*fallingSpeed, rb.linearVelocity.z);
+
+            //if player is falling and slower than terminal velocity, increase falling speed.
+            if (fallingVelocity.y < fallingTerminalVelocity)
+            {
+                rb.linearVelocity = new Vector3(rb.linearVelocity.x, fallingVelocity.y * fallingSpeedGrowth, rb.linearVelocity.z);
+            }else
+            {
+                rb.linearVelocity = new Vector3(rb.linearVelocity.x, fallingTerminalVelocity, rb.linearVelocity.z);
+            }
         }
 
         Debug.Log(rb.linearVelocity);
@@ -72,5 +93,10 @@ public class PlayerPhysics : MonoBehaviour
             ApplyForce(interaction.distance, interaction.magnitude, interaction.forceMode);
         }
         
+    }
+
+    public void ResetFallingVelocity()
+    {
+        rb.linearVelocity = new Vector3 (rb.linearVelocity.x, 0, rb.linearVelocity.z);
     }
 }

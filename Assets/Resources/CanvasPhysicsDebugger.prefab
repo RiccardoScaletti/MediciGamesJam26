@@ -523,6 +523,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2879ef51ab8046a48b8817cc02f91a27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CanvasPhysicsDebugger
-  debugDirection: {x: 0, y: 3.17, z: 0}
-  debugMagnitude: 1.38
+  debugDirection: {x: 0, y: 0, z: -1}
+  debugMagnitude: 20
   debugForceMode: 1

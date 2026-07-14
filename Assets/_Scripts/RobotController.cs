@@ -57,6 +57,14 @@ public class RobotController : MonoBehaviour
     private void OnJump(InputAction.CallbackContext context) 
     {
         //Debug.Log("Jump!");
-        PlayerPhysics.Instance.LoadPhysicInteraction(PhysicsInteractionManager.instance.interactionsList[(int)physicInteractions.Jump]);
+        if (PlayerPhysics.Instance.groundCheck.isGrounded)
+        {
+            //load physic interaction
+            PlayerPhysics.Instance.LoadPhysicInteraction(PhysicsInteractionManager.instance.interactionsList[(int)physicInteractions.Jump]);
+            //remove ability to jump once you are jumping
+            PlayerPhysics.Instance.groundCheck.isGrounded = false;
+            PlayerPhysics.Instance.groundCheck.isJumping = true;
+        }
+        
     }
 }

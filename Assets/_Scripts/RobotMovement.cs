@@ -6,9 +6,17 @@ public class RobotMovement : MonoBehaviour
     [SerializeField] private Transform ballVisual;
     [SerializeField] private Transform bodyVisual;
     [SerializeField] private Transform cameraRoot;
+
+    [Header("Camera")]
     [SerializeField] private float camLimitY;
-    [SerializeField] private float camLimitX;
+    //[SerializeField] private float camLimitX;
     [SerializeField] private float camSpeed;
+    float currentCamTiltY = 0;
+    public bool invertCamY;
+    float currentCamtiltX = 0;
+    public bool invertCamX;
+    //[SerializeField] float turnSpeed;
+    [SerializeField] Vector3 cameraOffset;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
@@ -21,11 +29,7 @@ public class RobotMovement : MonoBehaviour
     [SerializeField] private float maxBodyTilt = 20f;
     [SerializeField] private float bodyTiltSpeed = 180f;
 
-    float currentCamTiltY=0;
-    public bool invertCamY;
-    float currentCamtiltX = 0;
-    public bool invertCamX;
-    [SerializeField]float turnSpeed;
+   
 
     private RobotController controllerScript;
     private Rigidbody robotRigidbody;
@@ -62,7 +66,7 @@ public class RobotMovement : MonoBehaviour
 
         #region camera
         //follow player 
-        cameraRoot.transform.position = robotRigidbody.transform.position;
+        cameraRoot.transform.position = robotRigidbody.transform.position + cameraOffset;
 
         //rotate around player
         int camDirectionY = 1;
@@ -82,7 +86,7 @@ public class RobotMovement : MonoBehaviour
         
         //add camera tilt input into cam yaw
         currentCamtiltX += rotateInput.x * Time.deltaTime * camSpeed * camDirectionX;
-        currentCamtiltX = Mathf.Clamp(currentCamtiltX, -camLimitX, camLimitX);
+        //currentCamtiltX = Mathf.Clamp(currentCamtiltX, -camLimitX, camLimitX);
 
         cameraRoot.localRotation = Quaternion.Euler(currentCamTiltY, currentCamtiltX, 0f);
 
@@ -149,7 +153,7 @@ public class RobotMovement : MonoBehaviour
 
             //find difference between player rotation and camera rotation
             /*Vector3 rotationTarget = cameraRoot.transform.rotation - robotRigidbody.transform.rotation*/
-            float step = turnSpeed * Time.fixedDeltaTime;
+            float step = camSpeed * Time.fixedDeltaTime;
             robotRigidbody.transform.rotation = Quaternion.RotateTowards(transform.rotation, cameraRoot.transform.rotation, step);
         }
 
