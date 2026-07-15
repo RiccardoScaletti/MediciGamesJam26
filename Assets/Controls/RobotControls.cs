@@ -118,6 +118,24 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftArm"",
+                    ""type"": ""Button"",
+                    ""id"": ""305fe7fb-bfc2-456c-8710-ecb306ca88d0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightArm"",
+                    ""type"": ""Button"",
+                    ""id"": ""c182ade4-073d-4d70-8501-f1b392cd9417"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -252,6 +270,28 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0fa2b60e-07c4-41ea-8f5e-23a1f375c221"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftArm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4cd73cb2-5670-4244-80ae-5b30cd7ac4a9"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightArm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -263,6 +303,8 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         m_RobotActions_Move = m_RobotActions.FindAction("Move", throwIfNotFound: true);
         m_RobotActions_Rotate = m_RobotActions.FindAction("Rotate", throwIfNotFound: true);
         m_RobotActions_Jump = m_RobotActions.FindAction("Jump", throwIfNotFound: true);
+        m_RobotActions_LeftArm = m_RobotActions.FindAction("LeftArm", throwIfNotFound: true);
+        m_RobotActions_RightArm = m_RobotActions.FindAction("RightArm", throwIfNotFound: true);
     }
 
     ~@RobotControls()
@@ -346,6 +388,8 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_RobotActions_Move;
     private readonly InputAction m_RobotActions_Rotate;
     private readonly InputAction m_RobotActions_Jump;
+    private readonly InputAction m_RobotActions_LeftArm;
+    private readonly InputAction m_RobotActions_RightArm;
     /// <summary>
     /// Provides access to input actions defined in input action map "RobotActions".
     /// </summary>
@@ -369,6 +413,14 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "RobotActions/Jump".
         /// </summary>
         public InputAction @Jump => m_Wrapper.m_RobotActions_Jump;
+        /// <summary>
+        /// Provides access to the underlying input action "RobotActions/LeftArm".
+        /// </summary>
+        public InputAction @LeftArm => m_Wrapper.m_RobotActions_LeftArm;
+        /// <summary>
+        /// Provides access to the underlying input action "RobotActions/RightArm".
+        /// </summary>
+        public InputAction @RightArm => m_Wrapper.m_RobotActions_RightArm;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -404,6 +456,12 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @LeftArm.started += instance.OnLeftArm;
+            @LeftArm.performed += instance.OnLeftArm;
+            @LeftArm.canceled += instance.OnLeftArm;
+            @RightArm.started += instance.OnRightArm;
+            @RightArm.performed += instance.OnRightArm;
+            @RightArm.canceled += instance.OnRightArm;
         }
 
         /// <summary>
@@ -424,6 +482,12 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @LeftArm.started -= instance.OnLeftArm;
+            @LeftArm.performed -= instance.OnLeftArm;
+            @LeftArm.canceled -= instance.OnLeftArm;
+            @RightArm.started -= instance.OnRightArm;
+            @RightArm.performed -= instance.OnRightArm;
+            @RightArm.canceled -= instance.OnRightArm;
         }
 
         /// <summary>
@@ -485,5 +549,19 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnJump(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LeftArm" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLeftArm(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RightArm" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRightArm(InputAction.CallbackContext context);
     }
 }

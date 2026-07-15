@@ -16,6 +16,8 @@ public class PlayerPhysics : MonoBehaviour
     //limit how many times you are able to jump
     public GroundChecker groundCheck;
 
+    public Camera myCamera;
+
     //move this somewhere better.
     //have parameter that gives slight wiggle room to input jump when moving off a platform
     public float coyoteTimer;
@@ -91,6 +93,11 @@ public class PlayerPhysics : MonoBehaviour
         if(interaction.physicDirectionType == physicDirectionType.defined)
         {
             ApplyForce(interaction.distance, interaction.magnitude, interaction.forceMode);
+        }
+
+        if(interaction.physicInteraction == physicInteractions.Cannon)
+        {
+            ApplyForce(-1*myCamera.gameObject.transform.forward, interaction.magnitude, interaction.forceMode);
         }
         
     }

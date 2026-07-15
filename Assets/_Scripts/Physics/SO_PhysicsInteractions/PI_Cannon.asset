@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af11d59711dd284081d0cc7de9e1724, type: 3}
   m_Name: PI_Cannon
   m_EditorClassIdentifier: Assembly-CSharp::SO_PhysicsInteraction
-  physicDirectionType: 0
+  physicInteraction: 1
+  physicDirectionType: 1
   magnitude: 40000
   distance: {x: 0, y: 0, z: -1}
   forceMode: 0

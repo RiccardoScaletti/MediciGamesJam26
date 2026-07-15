@@ -24,6 +24,19 @@ public class RobotController : MonoBehaviour
         controls.RobotActions.Rotate.canceled += OnRotate;
 
         controls.RobotActions.Jump.performed += OnJump;
+        controls.RobotActions.RightArm.performed += RightArm_performed;
+        controls.RobotActions.LeftArm.performed += LeftArm_performed;
+    }
+
+    private void LeftArm_performed(InputAction.CallbackContext obj)
+    {
+        //read from a player definition what arm is equiped and send that info
+        PlayerPhysics.Instance.LoadPhysicInteraction(PhysicsInteractionManager.instance.interactionsList[(int)physicInteractions.Cannon]);
+    }
+
+    private void RightArm_performed(InputAction.CallbackContext obj)
+    {
+        PlayerPhysics.Instance.LoadPhysicInteraction(PhysicsInteractionManager.instance.interactionsList[(int)physicInteractions.Cannon]);
     }
 
     private void OnDisable()
@@ -34,6 +47,7 @@ public class RobotController : MonoBehaviour
         controls.RobotActions.Rotate.performed -= OnRotate;
         controls.RobotActions.Rotate.canceled -= OnRotate;
 
+        controls.RobotActions.Jump.performed -= OnJump;
         controls.RobotActions.Disable();
     }
 
