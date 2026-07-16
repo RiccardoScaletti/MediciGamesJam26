@@ -73,7 +73,7 @@ public class PlayerPhysics : MonoBehaviour
             }
         }
 
-        Debug.Log(rb.linearVelocity);
+        //Debug.Log(rb.linearVelocity);
     }
 
     public void ApplyForce(Vector3 newDirection, float newMagnitude, ForceMode newForceMode)

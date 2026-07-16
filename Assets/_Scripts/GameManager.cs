@@ -30,7 +30,14 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log("Game Over"); 
+        Debug.Log("You Made it!"); 
+        //UI Game won
+        player.transform.position = spawnPoint.position;
+    }
+
+    public void Death()
+    {
+        //UI Game over
         player.transform.position = spawnPoint.position;
     }
 }

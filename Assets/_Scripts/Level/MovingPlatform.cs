@@ -23,6 +23,24 @@ public class MovingPlatform : MonoBehaviour
         StartCoroutine(MovePlatform());
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Player entered the moving platform.");
+            other.transform.SetParent(transform);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Player exit the moving platform.");
+            other.transform.SetParent(null);
+        }
+    }
+
     private IEnumerator MovePlatform()
     {
         int currentCheckpointIndex = 1 % checkpoints.Length; // Start from the second checkpoint since the platform is already at the first one.

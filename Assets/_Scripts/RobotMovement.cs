@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RobotMovement : MonoBehaviour
@@ -116,28 +117,33 @@ public class RobotMovement : MonoBehaviour
         // The speed we want to eventually reach.
         Vector3 targetVelocity = moveDirection * moveSpeed;
 
-        // Accelerate faster while pushing input; coast down more slowly on release.
-        float rate = moveDirection.sqrMagnitude > 0.01f
-            ? acceleration
-            : deceleration;
+        //// Accelerate faster while pushing input; coast down more slowly on release.
+        //float rate = moveDirection.sqrMagnitude > 0.01f
+        //    ? acceleration
+        //    : deceleration;
 
-        glideVelocity = Vector3.MoveTowards(
-            glideVelocity,
-            targetVelocity,
-            rate * Time.fixedDeltaTime
-        );
+        //glideVelocity = Vector3.MoveTowards(
+        //    glideVelocity,
+        //    targetVelocity,
+        //    rate * Time.fixedDeltaTime
+        //);
 
         // Move using the manufactured velocity.
         robotRigidbody.MovePosition(
-            robotRigidbody.position + glideVelocity * Time.fixedDeltaTime
+            robotRigidbody.position + targetVelocity * Time.fixedDeltaTime
         );
 
-        #endregion
+        // Visual rolling only.
+        float rollAngle = ballRadius * Mathf.Rad2Deg;
+        Vector3 rollAxis = Vector3.Cross(Vector3.up, moveDirection);
+        ballVisual.Rotate(rollAxis, rollAngle, Space.World);
 
-        #region Rotation
-        //read inputs
+    #endregion
 
-        Vector3 rotateDirection = new Vector3(rotateInput.x, 0f, rotateInput.y);
+    #region Rotation
+    //read inputs
+
+    Vector3 rotateDirection = new Vector3(rotateInput.x, 0f, rotateInput.y);
 
         //if inputs are greater than deadzone
         if (Mathf.Abs(rotateInput.x) > 0.01f)
@@ -169,8 +175,6 @@ public class RobotMovement : MonoBehaviour
             bodyTiltSpeed * Time.fixedDeltaTime
         );
         #endregion
-
-        
 
     }
 }
