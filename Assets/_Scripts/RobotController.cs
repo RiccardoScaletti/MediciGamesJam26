@@ -31,12 +31,15 @@ public class RobotController : MonoBehaviour
     private void LeftArm_performed(InputAction.CallbackContext obj)
     {
         //read from a player definition what arm is equiped and send that info
-        PlayerPhysics.Instance.LoadPhysicInteraction(PhysicsInteractionManager.instance.interactionsList[(int)physicInteractions.Cannon]);
+        SO_PhysicsInteraction newInteraction = RobotManager.Instance.armManagement.leftArm.physicInteraction;
+        PlayerPhysics.Instance.LoadPhysicInteraction(newInteraction);
     }
 
     private void RightArm_performed(InputAction.CallbackContext obj)
     {
-        PlayerPhysics.Instance.LoadPhysicInteraction(PhysicsInteractionManager.instance.interactionsList[(int)physicInteractions.Cannon]);
+        //read from a player definition what arm is equiped and send that info
+        SO_PhysicsInteraction newInteraction = RobotManager.Instance.armManagement.rightArm.physicInteraction;
+        PlayerPhysics.Instance.LoadPhysicInteraction(newInteraction);
     }
 
     private void OnDisable()

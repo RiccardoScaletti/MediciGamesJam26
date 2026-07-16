@@ -1384,16 +1384,57 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4389088951824625080, guid: e24317c23ffea914095c43d9e372de27, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4722567163295271345, guid: e24317c23ffea914095c43d9e372de27, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 490031388398359990}
+      addedObject: {fileID: 490031388398359994}
+    - targetCorrespondingSourceObject: {fileID: 2138612083100195934, guid: e24317c23ffea914095c43d9e372de27, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 490031388398359995}
   m_SourcePrefab: {fileID: 100100000, guid: e24317c23ffea914095c43d9e372de27, type: 3}
 --- !u!1 &490031388398359989 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 4389088951824625080, guid: e24317c23ffea914095c43d9e372de27, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4722567163295271345, guid: e24317c23ffea914095c43d9e372de27, type: 3}
   m_PrefabInstance: {fileID: 490031388398359988}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &490031388398359990
+--- !u!114 &490031388398359990 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2273014169858080477, guid: e24317c23ffea914095c43d9e372de27, type: 3}
+  m_PrefabInstance: {fileID: 490031388398359988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490031388398359991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f16ae6faf5818db418f09099e50db8c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPhysics
+--- !u!1 &490031388398359991 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2138612083100195934, guid: e24317c23ffea914095c43d9e372de27, type: 3}
+  m_PrefabInstance: {fileID: 490031388398359988}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &490031388398359992 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8039580035619900338, guid: e24317c23ffea914095c43d9e372de27, type: 3}
+  m_PrefabInstance: {fileID: 490031388398359988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490031388398359991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e05513e04b3c5245a7238d4d516e4ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterController
+--- !u!114 &490031388398359993 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3452868742876298311, guid: e24317c23ffea914095c43d9e372de27, type: 3}
+  m_PrefabInstance: {fileID: 490031388398359988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490031388398359991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc57b4f823f4f840bdd148c417fa310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallMovement
+--- !u!114 &490031388398359994
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1402,9 +1443,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 490031388398359989}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84814defffe0756499c61c3c535380ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 76a4ebccbb60b8b42aaf2f0595cbcf07, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CameraRaycast
+  m_EditorClassIdentifier: Assembly-CSharp::RobotManager
+  armManagement: {fileID: 490031388398359995}
+  robotMovement: {fileID: 490031388398359993}
+  robotController: {fileID: 490031388398359992}
+  physics: {fileID: 490031388398359990}
+--- !u!114 &490031388398359995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490031388398359991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94630d02848758c4e84b49cee2ffa609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RobotArmManagement
+  leftArm:
+    model: {fileID: 0}
+    physicInteraction: {fileID: 11400000, guid: a9499e5d1a52a814ea3a96b979c93594, type: 2}
+  rightArm:
+    model: {fileID: 0}
+    physicInteraction: {fileID: 11400000, guid: ae43176aebf760047a9c6f787bad4413, type: 2}
+  leftShoulderPivot: {fileID: 0}
+  rightShoulderPivot: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
