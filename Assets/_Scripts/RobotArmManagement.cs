@@ -14,17 +14,6 @@ public class RobotArmManagement : MonoBehaviour
     [SerializeField] GameObject leftShoulderPivot;
     [SerializeField] GameObject rightShoulderPivot;
 
-    public RobotArmManagement instance { get; private set; }
-
-    private void Awake()
-    {
-        instance = this;
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-    }
 }
 
 public enum RobotArmPlacement { Left, Right };
