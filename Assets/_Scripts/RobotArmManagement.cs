@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 public class RobotArmManagement : MonoBehaviour
-{
+{ 
     //have properties for left arm and right arm
     //each load in a different model, animation and physic interaction
 
@@ -13,6 +13,18 @@ public class RobotArmManagement : MonoBehaviour
     [Header("Visuals")]
     [SerializeField] GameObject leftShoulderPivot;
     [SerializeField] GameObject rightShoulderPivot;
+
+    public RobotArmManagement instance { get; private set; }
+
+    private void Awake()
+    {
+        instance = this;
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
 }
 
 public enum RobotArmPlacement { Left, Right };

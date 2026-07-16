@@ -82,6 +82,5 @@ public class RobotController : MonoBehaviour
             PlayerPhysics.Instance.groundCheck.isGrounded = false;
             PlayerPhysics.Instance.groundCheck.isJumping = true;
         }
-        
     }
 }
