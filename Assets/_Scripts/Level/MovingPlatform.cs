@@ -7,9 +7,11 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] private float speed = 15f;
     [SerializeField] private float rotationSpeed = 90f;
     [SerializeField] private float waitTime = 3f;
+    Rigidbody rb;
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         if (checkpoints == null || checkpoints.Length == 0)
         {
             Debug.LogWarning("MovingPlatform has no checkpoints assigned.");
@@ -23,24 +25,7 @@ public class MovingPlatform : MonoBehaviour
         StartCoroutine(MovePlatform());
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("Player entered the moving platform.");
-            other.transform.SetParent(transform);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("Player exit the moving platform.");
-            other.transform.SetParent(null);
-        }
-    }
-
+    
     private IEnumerator MovePlatform()
     {
         int currentCheckpointIndex = 1 % checkpoints.Length; // Start from the second checkpoint since the platform is already at the first one.
@@ -51,16 +36,26 @@ public class MovingPlatform : MonoBehaviour
 
             while (transform.position != target.position || transform.rotation != target.rotation)
             {
-                transform.position = Vector3.MoveTowards(
+                //transform.position = Vector3.MoveTowards(
+                //    transform.position,
+                //    target.position,
+                //    speed * Time.deltaTime
+                //);
+                //transform.rotation = Quaternion.RotateTowards(
+                //    transform.rotation,
+                //    target.rotation,
+                //    rotationSpeed * Time.deltaTime
+                //);
+                rb.MovePosition(Vector3.MoveTowards(
                     transform.position,
                     target.position,
                     speed * Time.deltaTime
-                );
-                transform.rotation = Quaternion.RotateTowards(
+                ));
+                rb.MoveRotation(Quaternion.RotateTowards(
                     transform.rotation,
                     target.rotation,
                     rotationSpeed * Time.deltaTime
-                );
+                ));
 
                 yield return null;
             }

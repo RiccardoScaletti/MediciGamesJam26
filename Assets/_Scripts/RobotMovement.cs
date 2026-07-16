@@ -114,8 +114,9 @@ public class RobotMovement : MonoBehaviour
             bodyRight * moveInput.x +
             bodyForward * moveInput.y;
 
-        // The speed we want to eventually reach.
-        Vector3 targetVelocity = moveDirection * moveSpeed;
+        // Player input controls the horizontal Rigidbody velocity. Keep the existing
+        // vertical velocity so gravity, jumping, and knockback on the Y axis still work.
+        Vector3 inputVelocity = moveDirection * moveSpeed;
 
         //// Accelerate faster while pushing input; coast down more slowly on release.
         //float rate = moveDirection.sqrMagnitude > 0.01f
@@ -128,9 +129,10 @@ public class RobotMovement : MonoBehaviour
         //    rate * Time.fixedDeltaTime
         //);
 
-        // Move using the manufactured velocity.
-        robotRigidbody.MovePosition(
-            robotRigidbody.position + targetVelocity * Time.fixedDeltaTime
+        robotRigidbody.linearVelocity = new Vector3(
+            inputVelocity.x,
+            robotRigidbody.linearVelocity.y,
+            inputVelocity.z
         );
 
         // Visual rolling only.

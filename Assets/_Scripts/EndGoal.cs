@@ -4,6 +4,9 @@ public class EndGoal : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        GameManager.instance.GameOver();    
+        if (other.CompareTag("Player"))
+        {
+            GameManager.instance.GameOver();
+        }   
     }
 }
