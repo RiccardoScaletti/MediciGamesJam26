@@ -64,7 +64,7 @@ public class PlayerPhysics : MonoBehaviour
             //Debug.Log("You are falling, "+fallingVelocity.y);
 
             //if player is falling and slower than terminal velocity, increase falling speed.
-            if (fallingVelocity.y < fallingTerminalVelocity)
+            if (fallingVelocity.y < fallingTerminalVelocity && groundCheck.isJumping)
             {
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x, fallingVelocity.y * fallingSpeedGrowth, rb.linearVelocity.z);
             }else
@@ -88,18 +88,70 @@ public class PlayerPhysics : MonoBehaviour
         rb.AddForce(newForce, newForceMode);
     }
 
-    public void LoadPhysicInteraction(SO_PhysicsInteraction interaction)
+    public void LoadPhysicInteraction(SO_PhysicsInteraction interaction, RobotArmPlacement armPlacement)
     {
-        if(interaction.physicDirectionType == physicDirectionType.defined)
+        //pause linear falling to override with new physic interaction
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+
+        #region Jump
+        if (interaction.physicDirectionType == physicDirectionType.defined)
         {
+            //apply jump force in vertical direction
             ApplyForce(interaction.distance, interaction.magnitude, interaction.forceMode);
         }
+        #endregion
 
-        if(interaction.physicInteraction == physicInteractions.Cannon)
+        #region Cannon
+        if (interaction.physicInteraction == physicInteractions.Cannon)
         {
+            //apply cannon force in direction that is oposite to where camera is pointing
             ApplyForce(-1*myCamera.gameObject.transform.forward, interaction.magnitude, interaction.forceMode);
         }
-        
+        #endregion
+
+        #region Sticky Hand
+        //sticky hand
+        if (interaction  == PhysicsInteractionManager.instance.interactionsList[(int)physicInteractions.StickyHand])   //conditional operation if using sticky hand. First press vs second press distinction
+        {
+            //if arm has prefab, read to see if its sticky
+            //need to know which arm has the sticky hand
+            //store the reference of the sticky manager to this script
+            StickyHandManager stickyScr;
+            
+            switch (armPlacement)
+            {
+                case RobotArmPlacement.Left:
+                    stickyScr = RobotManager.Instance.armManagement.leftArm.prefab.GetComponent<StickyHandManager>();
+                    break;
+                case RobotArmPlacement.Right:
+                    stickyScr = RobotManager.Instance.armManagement.rightArm.prefab.GetComponent<StickyHandManager>();
+                    break;
+                default:
+                    return;
+            }
+
+            //handle states of the sticky hand once script is initialized
+            if (stickyScr)
+            {
+                
+                if (!stickyScr.isProjectileAlive)
+                {
+                    //first press, spawn projectile using camera data
+                    stickyScr.SpawnProjectile(myCamera.gameObject.transform.forward);
+                }
+                else
+                {
+                    //get transform data and load physic interaction
+                    Vector3 stickyDirection = (stickyScr.worldPivot.transform.position - stickyScr.armPivot.transform.position).normalized;
+                    //apply force that pulls character towards world point of projectile
+                    ApplyForce(stickyDirection, interaction.magnitude, interaction.forceMode);
+                    stickyScr.currentProjectile.DestroyProjectile();
+                }
+            }
+
+        }
+        #endregion
+
     }
 
     public void ResetFallingVelocity()

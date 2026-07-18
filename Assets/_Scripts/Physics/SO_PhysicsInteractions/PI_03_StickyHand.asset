@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9af11d59711dd284081d0cc7de9e1724, type: 3}
-  m_Name: PI_02_Cannon
+  m_Name: PI_03_StickyHand
   m_EditorClassIdentifier: Assembly-CSharp::SO_PhysicsInteraction
-  physicInteraction: 1
+  physicInteraction: 0
   physicDirectionType: 1
-  magnitude: 2000
-  distance: {x: 0, y: 0, z: -1}
+  magnitude: 5000
+  distance: {x: 0, y: 0, z: 0}
   forceMode: 1

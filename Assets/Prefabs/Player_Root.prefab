@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2550680946038743629}
   m_Layer: 0
-  m_Name: R-Arm-Root
+  m_Name: L-Arm-Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -444,6 +444,7 @@ MonoBehaviour:
   fallingSpeedGrowth: 1.5
   fallingTerminalVelocity: -30
   groundCheck: {fileID: 2174559432019427261}
+  myCamera: {fileID: 0}
   coyoteTimer: 0.125
 --- !u!114 &4910024072243312358
 MonoBehaviour:
@@ -469,7 +470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 747958981710772632}
   m_Layer: 0
-  m_Name: L-Arm-Root
+  m_Name: R-Arm-Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

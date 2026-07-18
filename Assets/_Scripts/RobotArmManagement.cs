@@ -16,10 +16,11 @@ public class RobotArmManagement : MonoBehaviour
 
 }
 
-public enum RobotArmPlacement { Left, Right };
+public enum RobotArmPlacement { Left, Right , Terminator};
 [Serializable]
 public class RobotArm
 {
-    public GameObject model;
-    public SO_PhysicsInteraction physicInteraction;
+    public GameObject prefab;
+    public SO_PhysicsInteraction physicsData;
+    //public RobotArmPlacement placement;
 }

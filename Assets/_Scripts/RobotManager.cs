@@ -9,6 +9,8 @@ public class RobotManager : MonoBehaviour
     public RobotController robotController;
     public PlayerPhysics physics;
 
+    public Transform projectileSpawner;
+
     private void Awake()
     {
         if(Instance == null)

@@ -31,15 +31,17 @@ public class RobotController : MonoBehaviour
     private void LeftArm_performed(InputAction.CallbackContext obj)
     {
         //read from a player definition what arm is equiped and send that info
-        SO_PhysicsInteraction newInteraction = RobotManager.Instance.armManagement.leftArm.physicInteraction;
-        PlayerPhysics.Instance.LoadPhysicInteraction(newInteraction);
+        SO_PhysicsInteraction newInteraction = RobotManager.Instance.armManagement.leftArm.physicsData;
+        PlayerPhysics.Instance.LoadPhysicInteraction(newInteraction, RobotArmPlacement.Left);
+
+        
     }
 
     private void RightArm_performed(InputAction.CallbackContext obj)
     {
         //read from a player definition what arm is equiped and send that info
-        SO_PhysicsInteraction newInteraction = RobotManager.Instance.armManagement.rightArm.physicInteraction;
-        PlayerPhysics.Instance.LoadPhysicInteraction(newInteraction);
+        SO_PhysicsInteraction newInteraction = RobotManager.Instance.armManagement.rightArm.physicsData;
+        PlayerPhysics.Instance.LoadPhysicInteraction(newInteraction, RobotArmPlacement.Right);
     }
 
     private void OnDisable()
@@ -77,7 +79,7 @@ public class RobotController : MonoBehaviour
         if (PlayerPhysics.Instance.groundCheck.isGrounded)
         {
             //load physic interaction
-            PlayerPhysics.Instance.LoadPhysicInteraction(PhysicsInteractionManager.instance.interactionsList[(int)physicInteractions.Jump]);
+            PlayerPhysics.Instance.LoadPhysicInteraction(PhysicsInteractionManager.instance.interactionsList[(int)physicInteractions.Jump], RobotArmPlacement.Terminator);
             //remove ability to jump once you are jumping
             PlayerPhysics.Instance.groundCheck.isGrounded = false;
             PlayerPhysics.Instance.groundCheck.isJumping = true;
