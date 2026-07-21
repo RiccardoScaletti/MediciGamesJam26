@@ -152,6 +152,34 @@ public class PlayerPhysics : MonoBehaviour
         }
         #endregion
 
+        #region SawHand
+        if (interaction.physicInteraction == physicInteractions.SawHand)
+        {
+            Transform sawOrigin;
+
+            switch (armPlacement)
+            {
+                case RobotArmPlacement.Left:
+                    sawOrigin = RobotManager.Instance.armManagement.leftArm.prefab.transform;
+                    break;
+
+                case RobotArmPlacement.Right:
+                    sawOrigin = RobotManager.Instance.armManagement.rightArm.prefab.transform;
+                    break;
+
+                default:
+                    return;
+            }
+
+            // Deve stare sul player: controlla il Rigidbody del player.
+            SawHandManager sawHand = GetComponent<SawHandManager>();
+            if (sawHand == null)
+                sawHand = gameObject.AddComponent<SawHandManager>();
+
+            sawHand.Configure(sawOrigin);
+        }
+        #endregion
+
     }
 
     public void ResetFallingVelocity()
