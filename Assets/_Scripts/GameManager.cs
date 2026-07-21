@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Transform spawnPoint;
 
+    private LevelRotation LevelRotationScr;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -21,18 +23,16 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         player.transform.position = spawnPoint.position;
+        LevelRotationScr = GetComponent<LevelRotation>();
     }
 
-    void Update()
-    {
-        
-    }
 
     public void GameOver()
     {
         Debug.Log("You Made it!"); 
         //UI Game won
         player.transform.position = spawnPoint.position;
+        LevelRotationScr.RotateLevel();
     }
 
     public void Death()
