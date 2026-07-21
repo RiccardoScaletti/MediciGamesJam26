@@ -7,8 +7,14 @@ public class GroundChecker : MonoBehaviour
     PlayerPhysics physicsScr;
     public bool isJumping;
 
+    [SerializeField] private Collider groundCollider;
+
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("ArenaWall"))
+        {
+            GameManager.instance.Death();
+        }
         //when landing, reset y velocity to 0
         physicsScr.ResetFallingVelocity();
     }

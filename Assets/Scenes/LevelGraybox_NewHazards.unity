@@ -3094,7 +3094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a06367176461b5478b13b84b52ff7f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  player: {fileID: 0}
+  player: {fileID: 466381436}
   spawnPoint: {fileID: 1100582004}
 --- !u!43 &433565024
 Mesh:
@@ -3452,6 +3452,11 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &466381436 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2138612083100195934, guid: e24317c23ffea914095c43d9e372de27, type: 3}
+  m_PrefabInstance: {fileID: 1332131385}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &509054553
 Mesh:
   m_ObjectHideFlags: 0
@@ -10976,6 +10981,9 @@ PrefabInstance:
       addedObject: {fileID: 1777763671}
     - targetCorrespondingSourceObject: {fileID: 6243256927042151846, guid: 64811c346e0245d4082d89c7b05baab3, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1777763672}
+    - targetCorrespondingSourceObject: {fileID: 6243256927042151846, guid: 64811c346e0245d4082d89c7b05baab3, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1777763670}
   m_SourcePrefab: {fileID: 100100000, guid: 64811c346e0245d4082d89c7b05baab3, type: 3}
 --- !u!4 &1777763668 stripped
@@ -11002,9 +11010,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SawHandManager
   sawOrigin: {fileID: 1777763668}
   movementReference: {fileID: 1332131387}
-  holdButton: Fire1
-  horizontalAxis: Horizontal
-  verticalAxis: Vertical
   sawableSurfaces:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -11041,6 +11046,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1777763672
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1777763669}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.87595314, y: 0.88830775, z: 1.0857987}
+  m_Center: {x: 0.1118898, y: 1.8828297, z: -0.049279686}
 --- !u!1 &1805926044
 GameObject:
   m_ObjectHideFlags: 0
