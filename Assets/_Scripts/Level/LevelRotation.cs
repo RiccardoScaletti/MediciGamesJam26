@@ -18,7 +18,7 @@ public class LevelRotation : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("needs rotation: " + needsRotation);
+        //Debug.Log("needs rotation: " + needsRotation);
         if (needsRotation)
         {
             arenaObj.rotation = Quaternion.Lerp(

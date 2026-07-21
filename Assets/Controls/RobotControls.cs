@@ -294,6 +294,96 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UIActions"",
+            ""id"": ""852f0c5a-4f59-4fe7-ad5e-17ac3b667b02"",
+            ""actions"": [
+                {
+                    ""name"": ""SelectNext"",
+                    ""type"": ""Button"",
+                    ""id"": ""443526ce-7386-4302-865e-e113cbfaafc6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectPrevious"",
+                    ""type"": ""Button"",
+                    ""id"": ""47930881-2c4c-44a6-88fd-8e94ad99c143"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Confirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""e7772fd0-f4ed-40bf-b4b0-67f9aff92275"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""f5e8dfea-da4d-4de4-ac13-8529747ad374"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9dd88f05-9cda-4b07-8f3c-e00141c6541f"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a497dfa6-8b86-4ae4-b647-1725ba24d624"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectPrevious"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""97e2ee08-0337-4cfc-881c-776a84795217"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectPrevious"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e233be21-8cc4-4376-9f3c-2886d1b61c35"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -305,11 +395,17 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         m_RobotActions_Jump = m_RobotActions.FindAction("Jump", throwIfNotFound: true);
         m_RobotActions_LeftArm = m_RobotActions.FindAction("LeftArm", throwIfNotFound: true);
         m_RobotActions_RightArm = m_RobotActions.FindAction("RightArm", throwIfNotFound: true);
+        // UIActions
+        m_UIActions = asset.FindActionMap("UIActions", throwIfNotFound: true);
+        m_UIActions_SelectNext = m_UIActions.FindAction("SelectNext", throwIfNotFound: true);
+        m_UIActions_SelectPrevious = m_UIActions.FindAction("SelectPrevious", throwIfNotFound: true);
+        m_UIActions_Confirm = m_UIActions.FindAction("Confirm", throwIfNotFound: true);
     }
 
     ~@RobotControls()
     {
         UnityEngine.Debug.Assert(!m_RobotActions.enabled, "This will cause a leak and performance issues, RobotControls.RobotActions.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_UIActions.enabled, "This will cause a leak and performance issues, RobotControls.UIActions.Disable() has not been called.");
     }
 
     /// <summary>
@@ -521,6 +617,124 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="RobotActionsActions" /> instance referencing this action map.
     /// </summary>
     public RobotActionsActions @RobotActions => new RobotActionsActions(this);
+
+    // UIActions
+    private readonly InputActionMap m_UIActions;
+    private List<IUIActionsActions> m_UIActionsActionsCallbackInterfaces = new List<IUIActionsActions>();
+    private readonly InputAction m_UIActions_SelectNext;
+    private readonly InputAction m_UIActions_SelectPrevious;
+    private readonly InputAction m_UIActions_Confirm;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "UIActions".
+    /// </summary>
+    public struct UIActionsActions
+    {
+        private @RobotControls m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public UIActionsActions(@RobotControls wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "UIActions/SelectNext".
+        /// </summary>
+        public InputAction @SelectNext => m_Wrapper.m_UIActions_SelectNext;
+        /// <summary>
+        /// Provides access to the underlying input action "UIActions/SelectPrevious".
+        /// </summary>
+        public InputAction @SelectPrevious => m_Wrapper.m_UIActions_SelectPrevious;
+        /// <summary>
+        /// Provides access to the underlying input action "UIActions/Confirm".
+        /// </summary>
+        public InputAction @Confirm => m_Wrapper.m_UIActions_Confirm;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_UIActions; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="UIActionsActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(UIActionsActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="UIActionsActions" />
+        public void AddCallbacks(IUIActionsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsActionsCallbackInterfaces.Add(instance);
+            @SelectNext.started += instance.OnSelectNext;
+            @SelectNext.performed += instance.OnSelectNext;
+            @SelectNext.canceled += instance.OnSelectNext;
+            @SelectPrevious.started += instance.OnSelectPrevious;
+            @SelectPrevious.performed += instance.OnSelectPrevious;
+            @SelectPrevious.canceled += instance.OnSelectPrevious;
+            @Confirm.started += instance.OnConfirm;
+            @Confirm.performed += instance.OnConfirm;
+            @Confirm.canceled += instance.OnConfirm;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="UIActionsActions" />
+        private void UnregisterCallbacks(IUIActionsActions instance)
+        {
+            @SelectNext.started -= instance.OnSelectNext;
+            @SelectNext.performed -= instance.OnSelectNext;
+            @SelectNext.canceled -= instance.OnSelectNext;
+            @SelectPrevious.started -= instance.OnSelectPrevious;
+            @SelectPrevious.performed -= instance.OnSelectPrevious;
+            @SelectPrevious.canceled -= instance.OnSelectPrevious;
+            @Confirm.started -= instance.OnConfirm;
+            @Confirm.performed -= instance.OnConfirm;
+            @Confirm.canceled -= instance.OnConfirm;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="UIActionsActions.UnregisterCallbacks(IUIActionsActions)" />.
+        /// </summary>
+        /// <seealso cref="UIActionsActions.UnregisterCallbacks(IUIActionsActions)" />
+        public void RemoveCallbacks(IUIActionsActions instance)
+        {
+            if (m_Wrapper.m_UIActionsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="UIActionsActions.AddCallbacks(IUIActionsActions)" />
+        /// <seealso cref="UIActionsActions.RemoveCallbacks(IUIActionsActions)" />
+        /// <seealso cref="UIActionsActions.UnregisterCallbacks(IUIActionsActions)" />
+        public void SetCallbacks(IUIActionsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="UIActionsActions" /> instance referencing this action map.
+    /// </summary>
+    public UIActionsActions @UIActions => new UIActionsActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "RobotActions" which allows adding and removing callbacks.
     /// </summary>
@@ -563,5 +777,34 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRightArm(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UIActions" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="UIActionsActions.AddCallbacks(IUIActionsActions)" />
+    /// <seealso cref="UIActionsActions.RemoveCallbacks(IUIActionsActions)" />
+    public interface IUIActionsActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "SelectNext" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectNext(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SelectPrevious" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectPrevious(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Confirm" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnConfirm(InputAction.CallbackContext context);
     }
 }
