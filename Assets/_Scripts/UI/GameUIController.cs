@@ -22,11 +22,11 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private GameObject rightArmsGO;
     [SerializeField] private Button[] leftArmChoices;
     [SerializeField] private Button[] rightArmChoices;
-    [SerializeField] private GameObject[] armSideImages = new GameObject[2];
 
-    //[SerializeField] private Button leftChoice;
-    //[SerializeField] private Button rightChoice;
-    //[SerializeField] private Button UpChoice;
+    [SerializeField] private Image robotImage;
+    [SerializeField] private Image[] leftArmImages;
+    [SerializeField] private Image[] rightArmImages;
+
 
     private ArmChoice currentArmChoice;
     public ArmChoice chosenLeftArm = ArmChoice.Empty;
@@ -37,14 +37,19 @@ public class GameUIController : MonoBehaviour
     private void Awake()
     {
         controls = new RobotControls();
-        //menuPanel.SetActive(false)
-        foreach (GameObject side in armSideImages)
+
+        //setup robot image and arms
+        foreach (Image img in leftArmImages)
         {
-            side.SetActive(false);
+            img.gameObject.SetActive(false);
+        }
+        foreach (Image img in rightArmImages)
+        {
+            img.gameObject.SetActive(false);
         }
     }
 
-    #region Setup
+    #region Controls Setup
     private void OnEnable()
     {
         controls.UIActions.SelectRight.performed += SelectRightChoice;
@@ -73,6 +78,7 @@ public class GameUIController : MonoBehaviour
 
     #endregion
 
+    #region Visuals
     public void ShowChoiceMenu()
     {
         //Check if not first time
@@ -118,7 +124,6 @@ public class GameUIController : MonoBehaviour
 
         //visuals setup
         menuPanel.SetActive(true);
-        armSideImages[0].SetActive(true);
         leftArmsGO.SetActive(true);
         rightArmsGO.SetActive(false);
 
@@ -147,17 +152,56 @@ public class GameUIController : MonoBehaviour
         GameManager.instance.EnableControls();
     }
 
+    private void CleanLeftArmsSelection()
+    {
+        foreach (Image img in leftArmImages)
+        {
+            img.gameObject.SetActive(false);
+        }
+    }
+
+    private void CleanRightArmsSelection()
+    { 
+        foreach (Image img in rightArmImages)
+        {
+            img.gameObject.SetActive(false);
+        }
+    }
+
+
+    private void ActivateLeftArmImage(int index)
+    {
+        leftArmImages[index].gameObject.SetActive(true);
+    }
+
+    private void ActivateRightArmImage(int index)
+    {
+        rightArmImages[index].gameObject.SetActive(true);
+    }
+
+    #endregion  
+
     private void SelectLeftChoice(InputAction.CallbackContext context)
     {
         Debug.Log("Select left choice");
         if (chosenLeftArm == ArmChoice.Empty)
         {
-            if (leftArmChoices[0].interactable) leftArmChoices[0].Select();
+            if (leftArmChoices[0].interactable)
+            {
+                leftArmChoices[0].Select();
+                CleanLeftArmsSelection();
+                ActivateLeftArmImage(0);
+            }
             else return; // If the choice is not interactable, do nothing
         }
         else if(chosenRightArm == ArmChoice.Empty)
         {
-            if (rightArmChoices[0].interactable) rightArmChoices[0].Select();
+            if (rightArmChoices[0].interactable)
+            { 
+                rightArmChoices[0].Select();
+                CleanRightArmsSelection();
+                ActivateRightArmImage(0);
+            }
             else return; // If the choice is not interactable, do nothing
         }
 
@@ -168,12 +212,23 @@ public class GameUIController : MonoBehaviour
         Debug.Log("Select up choice");
         if (chosenLeftArm == ArmChoice.Empty)
         {
-            if (leftArmChoices[1].interactable) leftArmChoices[1].Select();
+            if (leftArmChoices[1].interactable)
+            {
+                leftArmChoices[1].Select();
+                CleanLeftArmsSelection(); 
+                ActivateLeftArmImage(1);
+            }
             else return; // If the choice is not interactable, do nothing
         }
         else if (chosenRightArm == ArmChoice.Empty)
         {
-            if (rightArmChoices[1].interactable) rightArmChoices[1].Select();
+            if (rightArmChoices[1].interactable)
+            {
+                rightArmChoices[1].Select();
+                CleanRightArmsSelection();
+                ActivateRightArmImage(1);
+            }
+
             else return; // If the choice is not interactable, do nothing
         }
 
@@ -184,12 +239,22 @@ public class GameUIController : MonoBehaviour
         Debug.Log("Select right choice");
         if (chosenLeftArm == ArmChoice.Empty)
         {
-            if (leftArmChoices[2].interactable) leftArmChoices[2].Select();
+            if (leftArmChoices[2].interactable)
+            { 
+                leftArmChoices[2].Select();
+                CleanLeftArmsSelection();
+                ActivateLeftArmImage(2);
+            }
             else return; // If the choice is not interactable, do nothing
         }
         else if (chosenRightArm == ArmChoice.Empty)
         {
-            if (rightArmChoices[2].interactable) rightArmChoices[2].Select();
+            if (rightArmChoices[2].interactable)
+            {
+                rightArmChoices[2].Select();
+                CleanRightArmsSelection();
+                ActivateRightArmImage(2);
+            }
             else return; // If the choice is not interactable, do nothing
         }
 
@@ -202,9 +267,6 @@ public class GameUIController : MonoBehaviour
         {
             chosenLeftArm = currentArmChoice;
             Debug.Log("Left arm choice: " + chosenLeftArm);
-
-            armSideImages[0].SetActive(false);
-            armSideImages[1].SetActive(true);
 
             leftArmsGO.SetActive(false);
             rightArmsGO.SetActive(true);
