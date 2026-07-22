@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
     {
         robotControllerScr = player.GetComponent<RobotController>();
         levelRotationScr = GetComponent<LevelRotation>();
-        //gameUIManagerScr = GetComponent<GameUIManager>();
         gameUIControllerScr = GetComponent<GameUIController>();
+        GameEvents.RaiseLevelCompleted();
 
         //take away inputs till choices are made.
         robotControllerScr.enabled = false;
@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         player.transform.position = spawnPoint.position;
         levelRotationScr.RotateLevel();
         gameUIControllerScr.ShowChoiceMenu();
+        GameEvents.RaiseLevelCompleted();
     }
 
     public void Death()

@@ -183,7 +183,7 @@ public class GameUIController : MonoBehaviour
 
     private void SelectLeftChoice(InputAction.CallbackContext context)
     {
-        Debug.Log("Select left choice");
+        //Debug.Log("Select left choice");
         if (chosenLeftArm == ArmChoice.Empty)
         {
             if (leftArmChoices[0].interactable)
@@ -209,7 +209,7 @@ public class GameUIController : MonoBehaviour
     }
     private void SelectUpChoice(InputAction.CallbackContext context)
     {
-        Debug.Log("Select up choice");
+        //Debug.Log("Select up choice");
         if (chosenLeftArm == ArmChoice.Empty)
         {
             if (leftArmChoices[1].interactable)
@@ -236,7 +236,7 @@ public class GameUIController : MonoBehaviour
     }
     private void SelectRightChoice(InputAction.CallbackContext context)
     {
-        Debug.Log("Select right choice");
+        //Debug.Log("Select right choice");
         if (chosenLeftArm == ArmChoice.Empty)
         {
             if (leftArmChoices[2].interactable)
@@ -266,7 +266,7 @@ public class GameUIController : MonoBehaviour
         if (chosenLeftArm == ArmChoice.Empty)
         {
             chosenLeftArm = currentArmChoice;
-            Debug.Log("Left arm choice: " + chosenLeftArm);
+            //Debug.Log("Left arm choice: " + chosenLeftArm);
 
             leftArmsGO.SetActive(false);
             rightArmsGO.SetActive(true);
@@ -278,7 +278,7 @@ public class GameUIController : MonoBehaviour
         {
 
             chosenRightArm = currentArmChoice;
-            Debug.Log("Right arm choice: " + chosenRightArm);
+            //Debug.Log("Right arm choice: " + chosenRightArm);
 
             HideChoiceMenu();
         }
