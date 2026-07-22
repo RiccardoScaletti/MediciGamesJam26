@@ -300,7 +300,7 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
             ""id"": ""852f0c5a-4f59-4fe7-ad5e-17ac3b667b02"",
             ""actions"": [
                 {
-                    ""name"": ""SelectNext"",
+                    ""name"": ""SelectRight"",
                     ""type"": ""Button"",
                     ""id"": ""443526ce-7386-4302-865e-e113cbfaafc6"",
                     ""expectedControlType"": """",
@@ -309,7 +309,7 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SelectPrevious"",
+                    ""name"": ""SelectLeft"",
                     ""type"": ""Button"",
                     ""id"": ""47930881-2c4c-44a6-88fd-8e94ad99c143"",
                     ""expectedControlType"": """",
@@ -325,6 +325,15 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""f141f157-1c2b-481c-b567-b4b98601a93c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -335,7 +344,7 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SelectNext"",
+                    ""action"": ""SelectRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -346,18 +355,7 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SelectNext"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a497dfa6-8b86-4ae4-b647-1725ba24d624"",
-                    ""path"": ""<Gamepad>/dpad/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SelectPrevious"",
+                    ""action"": ""SelectRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -368,7 +366,18 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SelectPrevious"",
+                    ""action"": ""SelectLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a497dfa6-8b86-4ae4-b647-1725ba24d624"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -380,6 +389,28 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1847fd9b-de95-4feb-abac-b7ee13b14ef2"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a80a6319-8e01-45eb-b9ac-004060fc863e"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -397,9 +428,10 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         m_RobotActions_RightArm = m_RobotActions.FindAction("RightArm", throwIfNotFound: true);
         // UIActions
         m_UIActions = asset.FindActionMap("UIActions", throwIfNotFound: true);
-        m_UIActions_SelectNext = m_UIActions.FindAction("SelectNext", throwIfNotFound: true);
-        m_UIActions_SelectPrevious = m_UIActions.FindAction("SelectPrevious", throwIfNotFound: true);
+        m_UIActions_SelectRight = m_UIActions.FindAction("SelectRight", throwIfNotFound: true);
+        m_UIActions_SelectLeft = m_UIActions.FindAction("SelectLeft", throwIfNotFound: true);
         m_UIActions_Confirm = m_UIActions.FindAction("Confirm", throwIfNotFound: true);
+        m_UIActions_SelectUp = m_UIActions.FindAction("SelectUp", throwIfNotFound: true);
     }
 
     ~@RobotControls()
@@ -621,9 +653,10 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
     // UIActions
     private readonly InputActionMap m_UIActions;
     private List<IUIActionsActions> m_UIActionsActionsCallbackInterfaces = new List<IUIActionsActions>();
-    private readonly InputAction m_UIActions_SelectNext;
-    private readonly InputAction m_UIActions_SelectPrevious;
+    private readonly InputAction m_UIActions_SelectRight;
+    private readonly InputAction m_UIActions_SelectLeft;
     private readonly InputAction m_UIActions_Confirm;
+    private readonly InputAction m_UIActions_SelectUp;
     /// <summary>
     /// Provides access to input actions defined in input action map "UIActions".
     /// </summary>
@@ -636,17 +669,21 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         /// </summary>
         public UIActionsActions(@RobotControls wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "UIActions/SelectNext".
+        /// Provides access to the underlying input action "UIActions/SelectRight".
         /// </summary>
-        public InputAction @SelectNext => m_Wrapper.m_UIActions_SelectNext;
+        public InputAction @SelectRight => m_Wrapper.m_UIActions_SelectRight;
         /// <summary>
-        /// Provides access to the underlying input action "UIActions/SelectPrevious".
+        /// Provides access to the underlying input action "UIActions/SelectLeft".
         /// </summary>
-        public InputAction @SelectPrevious => m_Wrapper.m_UIActions_SelectPrevious;
+        public InputAction @SelectLeft => m_Wrapper.m_UIActions_SelectLeft;
         /// <summary>
         /// Provides access to the underlying input action "UIActions/Confirm".
         /// </summary>
         public InputAction @Confirm => m_Wrapper.m_UIActions_Confirm;
+        /// <summary>
+        /// Provides access to the underlying input action "UIActions/SelectUp".
+        /// </summary>
+        public InputAction @SelectUp => m_Wrapper.m_UIActions_SelectUp;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -673,15 +710,18 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_UIActionsActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_UIActionsActionsCallbackInterfaces.Add(instance);
-            @SelectNext.started += instance.OnSelectNext;
-            @SelectNext.performed += instance.OnSelectNext;
-            @SelectNext.canceled += instance.OnSelectNext;
-            @SelectPrevious.started += instance.OnSelectPrevious;
-            @SelectPrevious.performed += instance.OnSelectPrevious;
-            @SelectPrevious.canceled += instance.OnSelectPrevious;
+            @SelectRight.started += instance.OnSelectRight;
+            @SelectRight.performed += instance.OnSelectRight;
+            @SelectRight.canceled += instance.OnSelectRight;
+            @SelectLeft.started += instance.OnSelectLeft;
+            @SelectLeft.performed += instance.OnSelectLeft;
+            @SelectLeft.canceled += instance.OnSelectLeft;
             @Confirm.started += instance.OnConfirm;
             @Confirm.performed += instance.OnConfirm;
             @Confirm.canceled += instance.OnConfirm;
+            @SelectUp.started += instance.OnSelectUp;
+            @SelectUp.performed += instance.OnSelectUp;
+            @SelectUp.canceled += instance.OnSelectUp;
         }
 
         /// <summary>
@@ -693,15 +733,18 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UIActionsActions" />
         private void UnregisterCallbacks(IUIActionsActions instance)
         {
-            @SelectNext.started -= instance.OnSelectNext;
-            @SelectNext.performed -= instance.OnSelectNext;
-            @SelectNext.canceled -= instance.OnSelectNext;
-            @SelectPrevious.started -= instance.OnSelectPrevious;
-            @SelectPrevious.performed -= instance.OnSelectPrevious;
-            @SelectPrevious.canceled -= instance.OnSelectPrevious;
+            @SelectRight.started -= instance.OnSelectRight;
+            @SelectRight.performed -= instance.OnSelectRight;
+            @SelectRight.canceled -= instance.OnSelectRight;
+            @SelectLeft.started -= instance.OnSelectLeft;
+            @SelectLeft.performed -= instance.OnSelectLeft;
+            @SelectLeft.canceled -= instance.OnSelectLeft;
             @Confirm.started -= instance.OnConfirm;
             @Confirm.performed -= instance.OnConfirm;
             @Confirm.canceled -= instance.OnConfirm;
+            @SelectUp.started -= instance.OnSelectUp;
+            @SelectUp.performed -= instance.OnSelectUp;
+            @SelectUp.canceled -= instance.OnSelectUp;
         }
 
         /// <summary>
@@ -786,19 +829,19 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
     public interface IUIActionsActions
     {
         /// <summary>
-        /// Method invoked when associated input action "SelectNext" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "SelectRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSelectNext(InputAction.CallbackContext context);
+        void OnSelectRight(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "SelectPrevious" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "SelectLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSelectPrevious(InputAction.CallbackContext context);
+        void OnSelectLeft(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Confirm" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -806,5 +849,12 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnConfirm(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SelectUp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectUp(InputAction.CallbackContext context);
     }
 }

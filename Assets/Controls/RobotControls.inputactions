@@ -214,7 +214,7 @@
             "id": "852f0c5a-4f59-4fe7-ad5e-17ac3b667b02",
             "actions": [
                 {
-                    "name": "SelectNext",
+                    "name": "SelectRight",
                     "type": "Button",
                     "id": "443526ce-7386-4302-865e-e113cbfaafc6",
                     "expectedControlType": "",
@@ -223,7 +223,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SelectPrevious",
+                    "name": "SelectLeft",
                     "type": "Button",
                     "id": "47930881-2c4c-44a6-88fd-8e94ad99c143",
                     "expectedControlType": "",
@@ -239,6 +239,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SelectUp",
+                    "type": "Button",
+                    "id": "f141f157-1c2b-481c-b567-b4b98601a93c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -249,7 +258,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SelectNext",
+                    "action": "SelectRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -260,18 +269,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SelectNext",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a497dfa6-8b86-4ae4-b647-1725ba24d624",
-                    "path": "<Gamepad>/dpad/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SelectPrevious",
+                    "action": "SelectRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -282,7 +280,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SelectPrevious",
+                    "action": "SelectLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a497dfa6-8b86-4ae4-b647-1725ba24d624",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -294,6 +303,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1847fd9b-de95-4feb-abac-b7ee13b14ef2",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a80a6319-8e01-45eb-b9ac-004060fc863e",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

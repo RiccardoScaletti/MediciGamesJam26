@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
 
     private LevelRotation levelRotationScr;
-    private GameUIManager gameUIManagerScr;
+    //private GameUIManager gameUIManagerScr;
+    private GameUIController gameUIControllerScr;
     private RobotController robotControllerScr;
 
     private void Awake()
@@ -26,13 +27,15 @@ public class GameManager : MonoBehaviour
     {
         robotControllerScr = player.GetComponent<RobotController>();
         levelRotationScr = GetComponent<LevelRotation>();
-        gameUIManagerScr = GetComponent<GameUIManager>();
+        //gameUIManagerScr = GetComponent<GameUIManager>();
+        gameUIControllerScr = GetComponent<GameUIController>();
 
         //take away inputs till choices are made.
         robotControllerScr.enabled = false;
 
         player.transform.position = spawnPoint.position;
-        gameUIManagerScr.ShowChoiceMenu();
+        //gameUIManagerScr.ShowChoiceMenu();
+        gameUIControllerScr.ShowChoiceMenu();
     }
 
 
@@ -52,6 +55,7 @@ public class GameManager : MonoBehaviour
         //UI Game won
         player.transform.position = spawnPoint.position;
         levelRotationScr.RotateLevel();
+        gameUIControllerScr.ShowChoiceMenu();
     }
 
     public void Death()
