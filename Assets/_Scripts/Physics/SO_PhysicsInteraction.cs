@@ -9,5 +9,7 @@ public class SO_PhysicsInteraction : ScriptableObject
     public physicDirectionType physicDirectionType;
     public float magnitude;
     public Vector3 distance;
-    public ForceMode forceMode; 
+    public ForceMode forceMode;
+    public GameObject LeftArmModel;
+    public GameObject RightArmModel;
 }

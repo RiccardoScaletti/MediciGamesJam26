@@ -7,6 +7,8 @@ public class CanvasPhysicsDebugger : MonoBehaviour
     [SerializeField] private float debugMagnitude;
     [SerializeField] private ForceMode debugForceMode;
     private PlayerPhysics playerPhysicsScr;
+    [SerializeField] RobotArmPlacement debugArmPlacement;
+    [SerializeField] SO_PhysicsInteraction debugArmToLoad;
 
     public void callPhysicsMethod()
     {
@@ -16,5 +18,10 @@ public class CanvasPhysicsDebugger : MonoBehaviour
     public void StorePlayerPhysicScript(PlayerPhysics scr)
     {
         playerPhysicsScr = scr;
+    }
+
+    public void callArmUpdateMethod()
+    {
+        RobotManager.Instance.armManagement.UpdateArmChoice(debugArmPlacement, debugArmToLoad);
     }
 }

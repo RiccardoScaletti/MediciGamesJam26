@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 4809719280209772148}
   - component: {fileID: 6040788861573016866}
   m_Layer: 0
-  m_Name: RobotArm-Claw
+  m_Name: RobotArm-Saw-Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,6 +167,7 @@ MonoBehaviour:
   isProjectileCollided: 0
   projectileSpeed: 10
   armRender: {fileID: 3555305952896120834}
+  projectileLifetime: 0
 --- !u!1 &7020552387902441701
 GameObject:
   m_ObjectHideFlags: 0

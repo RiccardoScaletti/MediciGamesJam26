@@ -23,7 +23,7 @@ public class StickyHandProjectile : MonoBehaviour
         {
             rb = GetComponent<Rigidbody>();
         }
-        
+        //Debug.Log("<color=green>Projectile from Sticky Hand Spawned</color>");
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -76,5 +76,10 @@ public class StickyHandProjectile : MonoBehaviour
     {
         yield return new WaitForSeconds(manager.projectileLifetime);
         DestroyProjectile();
+    }
+
+    private void OnDestroy()
+    {
+        //Debug.Log("<color=orange>Projectile from Sticky Hand Destroyed");
     }
 }

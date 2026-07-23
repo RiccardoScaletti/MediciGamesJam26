@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &766445362589025196
 Transform:
   m_ObjectHideFlags: 0
@@ -324,6 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GroundChecker
   isGrounded: 0
   isJumping: 0
+  groundCollider: {fileID: 0}
 --- !u!1 &1622468641692199094
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,8 +565,6 @@ GameObject:
   - component: {fileID: 4910024072243312358}
   - component: {fileID: 3738498409587829767}
   - component: {fileID: 9167597963039695120}
-  - component: {fileID: 3213625855459347255}
-  - component: {fileID: 5770936502867761117}
   m_Layer: 3
   m_Name: PlayerCollider
   m_TagString: Player
@@ -668,7 +667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f16ae6faf5818db418f09099e50db8c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPhysics
-  debugActive: 0
+  debugActive: 1
   fallingSpeedGrowth: 1.5
   fallingTerminalVelocity: -40
   groundCheck: {fileID: 2174559432019427261}
@@ -702,54 +701,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RobotArmManagement
   leftArm:
     prefab: {fileID: 0}
-    physicsData: {fileID: 11400000, guid: ae43176aebf760047a9c6f787bad4413, type: 2}
+    armData: {fileID: 0}
   rightArm:
-    prefab: {fileID: 1323243668773758638}
-    physicsData: {fileID: 11400000, guid: 43499d8df43f5a84d8a3075818c31411, type: 2}
-  leftShoulderPivot: {fileID: 0}
-  rightShoulderPivot: {fileID: 0}
+    prefab: {fileID: 0}
+    armData: {fileID: 0}
+  leftShoulderPivot: {fileID: 215341290388667263}
+  rightShoulderPivot: {fileID: 2156650129452014957}
 --- !u!65 &9167597963039695120
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2138612083100195934}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.7003913, y: 1.81, z: 1.3341427}
-  m_Center: {x: 0.00167799, y: 0.69, z: 0.16707134}
---- !u!114 &3213625855459347255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2138612083100195934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94630d02848758c4e84b49cee2ffa609, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RobotArmManagement
-  leftArm:
-    prefab: {fileID: 0}
-    physicsData: {fileID: 11400000, guid: ae43176aebf760047a9c6f787bad4413, type: 2}
-  rightArm:
-    prefab: {fileID: 0}
-    physicsData: {fileID: 11400000, guid: 43499d8df43f5a84d8a3075818c31411, type: 2}
-  leftShoulderPivot: {fileID: 0}
-  rightShoulderPivot: {fileID: 0}
---- !u!65 &5770936502867761117
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -800,7 +758,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6580834184949219608}
-  - {fileID: 6958859918823432654}
   m_Father: {fileID: 3002230172871851256}
   m_LocalEulerAnglesHint: {x: 0, y: 9.994, z: 0}
 --- !u!1 &4102393133802981706
@@ -1434,7 +1391,7 @@ MonoBehaviour:
   robotMovement: {fileID: 3452868742876298311}
   robotController: {fileID: 8039580035619900338}
   physics: {fileID: 2273014169858080477}
-  projectileSpawner: {fileID: 2071138277781704503}
+  projectileSpawner: {fileID: 5583792944747001795}
 --- !u!1 &4885319920318398655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2538,108 +2495,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &2462721372043648954
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 747958981710772632}
-    m_Modifications:
-    - target: {fileID: 1404688958188135969, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2213547171939035879, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2577169445122308956, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3490363452275816724, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_Name
-      value: RobotArm-Claw
-      objectReference: {fileID: 0}
-    - target: {fileID: 3490363452275816724, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809719280209772148, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809719280209772148, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809719280209772148, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809719280209772148, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809719280209772148, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809719280209772148, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809719280209772148, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809719280209772148, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809719280209772148, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809719280209772148, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6040788861573016866, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: grappleHandObject
-      value: 
-      objectReference: {fileID: 139235549162366182}
-    - target: {fileID: 6040788861573016866, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: projectileLifetime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7020552387902441701, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
---- !u!1 &139235549162366182 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2577169445122308956, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-  m_PrefabInstance: {fileID: 2462721372043648954}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1323243668773758638 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3490363452275816724, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-  m_PrefabInstance: {fileID: 2462721372043648954}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2071138277781704503 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4509072173742690445, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-  m_PrefabInstance: {fileID: 2462721372043648954}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6958859918823432654 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4809719280209772148, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
-  m_PrefabInstance: {fileID: 2462721372043648954}
-  m_PrefabAsset: {fileID: 0}

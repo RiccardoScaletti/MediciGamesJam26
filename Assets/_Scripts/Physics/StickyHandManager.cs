@@ -26,6 +26,8 @@ public class StickyHandManager : MonoBehaviour
     
     public void SpawnProjectile(Vector3 direction)
     {
+        
+
         //turn off hand object
 
 

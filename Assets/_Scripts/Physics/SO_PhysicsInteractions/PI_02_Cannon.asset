@@ -17,3 +17,5 @@ MonoBehaviour:
   magnitude: 2000
   distance: {x: 0, y: 0, z: -1}
   forceMode: 1
+  LeftArmModel: {fileID: 3490363452275816724, guid: 80254222063eb5d46a64435a15a8b353, type: 3}
+  RightArmModel: {fileID: 3490363452275816724, guid: 75562350e3ca1fc4e82db22dd514b248, type: 3}

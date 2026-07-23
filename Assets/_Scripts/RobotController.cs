@@ -31,7 +31,7 @@ public class RobotController : MonoBehaviour
     private void LeftArm_performed(InputAction.CallbackContext obj)
     {
         //read from a player definition what arm is equiped and send that info
-        SO_PhysicsInteraction newInteraction = RobotManager.Instance.armManagement.leftArm.physicsData;
+        SO_PhysicsInteraction newInteraction = RobotManager.Instance.armManagement.leftArm.armData;
         PlayerPhysics.Instance.LoadPhysicInteraction(newInteraction, RobotArmPlacement.Left);
 
         
@@ -40,7 +40,7 @@ public class RobotController : MonoBehaviour
     private void RightArm_performed(InputAction.CallbackContext obj)
     {
         //read from a player definition what arm is equiped and send that info
-        SO_PhysicsInteraction newInteraction = RobotManager.Instance.armManagement.rightArm.physicsData;
+        SO_PhysicsInteraction newInteraction = RobotManager.Instance.armManagement.rightArm.armData;
         PlayerPhysics.Instance.LoadPhysicInteraction(newInteraction, RobotArmPlacement.Right);
     }
 

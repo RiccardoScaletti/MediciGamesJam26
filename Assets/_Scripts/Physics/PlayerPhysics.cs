@@ -157,6 +157,7 @@ public class PlayerPhysics : MonoBehaviour
         {
             Transform sawOrigin;
 
+            //Let's apply the placement of the arm through the robot manager.
             switch (armPlacement)
             {
                 case RobotArmPlacement.Left:
@@ -176,6 +177,7 @@ public class PlayerPhysics : MonoBehaviour
             if (sawHand == null)
                 sawHand = gameObject.AddComponent<SawHandManager>();
 
+            //What does sawHand Configure do?
             sawHand.Configure(sawOrigin);
         }
         #endregion
