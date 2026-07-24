@@ -47,6 +47,7 @@ public class StickyHandManager : MonoBehaviour
     {
         
         ToggleHand(false);
+        isProjectileAlive = false;
     }
 
     private void Update()
@@ -55,12 +56,20 @@ public class StickyHandManager : MonoBehaviour
         if (isProjectileAlive)
         {
             armRender.SetPosition(1, currentProjectile.transform.position);
-            
+            if (RobotManager.Instance.physics.debugActive)
+            {
+                if (worldPivot)
+                {
+                    Debug.Log("<color=orange>Distance of sticky: " + (worldPivot.transform.position - armPivot.transform.position).normalized);
+                }
+                
+            }
         }
         else
         {
             armRender.SetPosition(1, grappleHandObject.transform.position);
         }
+
     }
 
     public void ToggleHand(bool toggle)

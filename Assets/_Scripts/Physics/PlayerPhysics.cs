@@ -8,7 +8,7 @@ public class PlayerPhysics : MonoBehaviour
 
     private Rigidbody rb;
 
-    [SerializeField] private bool debugActive;
+    public bool debugActive;
     private Vector3 direction;
     //increase falling speed when you are falling
     [SerializeField] private float fallingSpeedGrowth;
@@ -265,6 +265,7 @@ public class PlayerPhysics : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("<color=orange>Sticky Projectile distance code entered");
                     //get transform data and load physic interaction
                     Vector3 stickyDirection = (stickyScr.worldPivot.transform.position - stickyScr.armPivot.transform.position).normalized;
                     //apply force that pulls character towards world point of projectile
