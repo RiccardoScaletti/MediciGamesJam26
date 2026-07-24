@@ -51,12 +51,16 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log("You Made it!"); 
-        //UI Game won
-        player.transform.position = spawnPoint.position;
+        //Debug.Log("You Made it!"); 
+
+        player.transform.position = spawnPoint.position; //reset to spawn
+        RobotMovement movementScript = player.GetComponent<RobotMovement>();
+        movementScript.OnSpawnResetVelocity();
+
         levelRotationScr.RotateLevel();
-        gameUIControllerScr.ShowChoiceMenu();
         GameEvents.RaiseLevelCompleted();
+
+        gameUIControllerScr.ShowChoiceMenu();
     }
 
     public void Death()
