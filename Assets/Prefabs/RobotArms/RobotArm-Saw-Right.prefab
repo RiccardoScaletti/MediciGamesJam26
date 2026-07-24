@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2286687726045953057
+--- !u!1 &1234914419198287955
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7892969553898973037}
-  - component: {fileID: 2162412612879054175}
-  - component: {fileID: 7308422709466022147}
+  - component: {fileID: 1089765115635038204}
+  - component: {fileID: 5026309200080714117}
+  - component: {fileID: 7783074890937291529}
   m_Layer: 0
-  m_Name: SawOrigin
+  m_Name: SawOrigin (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7892969553898973037
+--- !u!4 &1089765115635038204
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2286687726045953057}
+  m_GameObject: {fileID: 1234914419198287955}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.423, y: 1.889, z: 0.047}
+  m_LocalRotation: {x: -0, y: -0.0871077, z: 0.0000000074505797, w: 0.9961989}
+  m_LocalPosition: {x: -0.454, y: 1.803, z: -0.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4809719280209772148}
+  m_Father: {fileID: 2292519554479949829}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2162412612879054175
+--- !u!65 &5026309200080714117
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2286687726045953057}
+  m_GameObject: {fileID: 1234914419198287955}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -54,13 +54,13 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.38, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &7308422709466022147
+--- !u!54 &7783074890937291529
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2286687726045953057}
+  m_GameObject: {fileID: 1234914419198287955}
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
@@ -81,7 +81,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1 &3490363452275816724
+--- !u!1 &6440467763233942354
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,45 +89,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4809719280209772148}
-  - component: {fileID: 2759700274238291969}
+  - component: {fileID: 2292519554479949829}
+  - component: {fileID: 5664060920953166483}
   m_Layer: 0
-  m_Name: RobotArm-Saw-Left
+  m_Name: RobotArm-Saw-Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4809719280209772148
+--- !u!4 &2292519554479949829
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3490363452275816724}
+  m_GameObject: {fileID: 6440467763233942354}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6180055550758641100}
-  - {fileID: 7892969553898973037}
+  - {fileID: 6359284264275056983}
+  - {fileID: 1089765115635038204}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2759700274238291969
+--- !u!114 &5664060920953166483
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3490363452275816724}
+  m_GameObject: {fileID: 6440467763233942354}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce52a7996e1d387458eaed8983d89c1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SawHandManager
-  sawOrigin: {fileID: 7892969553898973037}
+  sawOrigin: {fileID: 1089765115635038204}
   movementReference: {fileID: 0}
   sawableSurfaces:
     serializedVersion: 2
@@ -138,13 +138,13 @@ MonoBehaviour:
   sawSpeed: 8
   adhesionStrength: 30
   releasePush: 1.5
---- !u!1001 &3583551720875838620
+--- !u!1001 &4339242234335823879
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4809719280209772148}
+    m_TransformParent: {fileID: 2292519554479949829}
     m_Modifications:
     - target: {fileID: 6243256927042151846, guid: 64811c346e0245d4082d89c7b05baab3, type: 3}
       propertyPath: m_Name
@@ -152,19 +152,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7239715114825093456, guid: 64811c346e0245d4082d89c7b05baab3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: -0.531
       objectReference: {fileID: 0}
     - target: {fileID: 7239715114825093456, guid: 64811c346e0245d4082d89c7b05baab3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7239715114825093456, guid: 64811c346e0245d4082d89c7b05baab3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7239715114825093456, guid: 64811c346e0245d4082d89c7b05baab3, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7239715114825093456, guid: 64811c346e0245d4082d89c7b05baab3, type: 3}
       propertyPath: m_LocalRotation.x
@@ -172,7 +172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7239715114825093456, guid: 64811c346e0245d4082d89c7b05baab3, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7239715114825093456, guid: 64811c346e0245d4082d89c7b05baab3, type: 3}
       propertyPath: m_LocalRotation.z
@@ -184,7 +184,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7239715114825093456, guid: 64811c346e0245d4082d89c7b05baab3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7239715114825093456, guid: 64811c346e0245d4082d89c7b05baab3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -195,8 +195,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64811c346e0245d4082d89c7b05baab3, type: 3}
---- !u!4 &6180055550758641100 stripped
+--- !u!4 &6359284264275056983 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7239715114825093456, guid: 64811c346e0245d4082d89c7b05baab3, type: 3}
-  m_PrefabInstance: {fileID: 3583551720875838620}
+  m_PrefabInstance: {fileID: 4339242234335823879}
   m_PrefabAsset: {fileID: 0}
