@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody))]
@@ -7,7 +8,7 @@ public class PlayerPhysics : MonoBehaviour
 
     private Rigidbody rb;
 
-    [SerializeField] private bool debugActive;
+    public bool debugActive;
     private Vector3 direction;
     //increase falling speed when you are falling
     [SerializeField] private float fallingSpeedGrowth;
@@ -21,7 +22,8 @@ public class PlayerPhysics : MonoBehaviour
     //move this somewhere better.
     //have parameter that gives slight wiggle room to input jump when moving off a platform
     public float coyoteTimer;
-
+    public bool startAcceleratingLeft, startAcceleratingRight;
+    
 
     private void Start()
     {
@@ -73,7 +75,41 @@ public class PlayerPhysics : MonoBehaviour
             }
         }
 
+
+        #region SawArm
+        //get direction from input vector(horizontal) + camera forward
+        Vector3 accelerationDirection = RobotManager.Instance.physics.myCamera.gameObject.transform.forward;
+        //apply acceleration force here
+        if (startAcceleratingLeft)
+        {
+            SO_PhysicsInteraction leftInteraction = PhysicsInteractionManager.instance.interactionLoadedLeft;
+            ApplyForce(accelerationDirection, leftInteraction.magnitude, leftInteraction.forceMode);
+            if (!groundCheck.isGrounded)
+            {
+                LoadSawArmJump();
+                startAcceleratingLeft = false;
+            }
+        }
+        if (startAcceleratingRight)
+        {
+            SO_PhysicsInteraction rightIntearction = PhysicsInteractionManager.instance.interactionLoadedRight;
+            ApplyForce(accelerationDirection, rightIntearction.magnitude, rightIntearction.forceMode);
+            if (!groundCheck.isGrounded)
+            {
+                LoadSawArmJump();
+                startAcceleratingRight = false;
+            }
+        }
+        #endregion
+
         //Debug.Log(rb.linearVelocity);
+    }
+
+    private void LoadSawArmJump()
+    {
+        
+        LoadPhysicInteraction(PhysicsInteractionManager.instance.interactionsList[4], RobotArmPlacement.Terminator);
+       
     }
 
     public void ApplyForce(Vector3 newDirection, float newMagnitude, ForceMode newForceMode)
@@ -88,13 +124,101 @@ public class PlayerPhysics : MonoBehaviour
         rb.AddForce(newForce, newForceMode);
     }
 
+    public bool TestPhysicInteraction(SO_PhysicsInteraction interaction, RobotArmPlacement armPlacement)
+    {
+        bool isTestSuccess = false;
+
+        #region SawHand
+        if (interaction.physicInteraction == physicInteractions.SawHand)
+        {
+            //Transform sawOrigin;
+
+            ////Let's apply the placement of the arm through the robot manager.
+            //switch (armPlacement)
+            //{
+            //    case RobotArmPlacement.Left:
+            //        sawOrigin = RobotManager.Instance.armManagement.leftArm.prefab.transform;
+            //        break;
+
+            //    case RobotArmPlacement.Right:
+            //        sawOrigin = RobotManager.Instance.armManagement.rightArm.prefab.transform;
+            //        break;
+
+            //    default:
+            //        return;
+            //}
+
+            // Deve stare sul player: controlla il Rigidbody del player.
+            //SawHandManager sawHand = GetComponent<SawHandManager>();
+            //if (sawHand == null)
+            //    sawHand = gameObject.AddComponent<SawHandManager>();
+
+            //What does sawHand Configure do?
+            //sawHand.Configure(sawOrigin);
+
+            //Initialize SawHandManager
+            SawHandManager sawHandManager;
+            switch (armPlacement)
+            {
+                case RobotArmPlacement.Left:
+                    sawHandManager = RobotManager.Instance.armManagement.leftArm.prefab.GetComponent<SawHandManager>();
+                    break;
+                case RobotArmPlacement.Right:
+                    sawHandManager = RobotManager.Instance.armManagement.rightArm.prefab.GetComponent<SawHandManager>();
+                    break;
+                default:
+                case RobotArmPlacement.Terminator:
+                    sawHandManager = null;
+                    break;
+
+
+            }
+            //let player cast raycast if they are grounded
+            if (groundCheck.isGrounded) 
+            {
+                //Raycast out of camera , if distance is acceptable, attach.
+                Vector3 rayOrigin = myCamera.transform.position;
+                Vector3 rayDirection = myCamera.transform.forward;
+                RaycastHit hit;
+
+
+                //Fire Raycast
+                if (Physics.Raycast(rayOrigin, rayDirection, out hit, 100f))
+                {
+                    //extract distance from the camera to the hit object
+                    float rayDistance = hit.distance;
+                    Debug.Log(hit.collider.name + " hit: " + rayDistance);
+
+                    //check if raycast distance is within range of sawmanager
+                    if (rayDistance <= sawHandManager.acquireDistance)
+                    {
+                        isTestSuccess = true;
+                    }
+
+                }
+
+
+            }
+            
+        }
+        #endregion
+
+        return isTestSuccess;
+    }
+
+    //these are intearction loading for one shot physics
     public void LoadPhysicInteraction(SO_PhysicsInteraction interaction, RobotArmPlacement armPlacement)
     {
+        if (debugActive)
+        {
+            Debug.Log("<color=yellow>Loading: "+interaction.name+"</color>");
+        }
+
         //pause linear falling to override with new physic interaction
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
 
         #region Jump
-        if (interaction.physicDirectionType == physicDirectionType.defined)
+        if (interaction.physicInteraction == physicInteractions.Jump)
         {
             //apply jump force in vertical direction
             ApplyForce(interaction.distance, interaction.magnitude, interaction.forceMode);
@@ -141,6 +265,7 @@ public class PlayerPhysics : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("<color=orange>Sticky Projectile distance code entered");
                     //get transform data and load physic interaction
                     Vector3 stickyDirection = (stickyScr.worldPivot.transform.position - stickyScr.armPivot.transform.position).normalized;
                     //apply force that pulls character towards world point of projectile
@@ -152,35 +277,14 @@ public class PlayerPhysics : MonoBehaviour
         }
         #endregion
 
-        #region SawHand
-        if (interaction.physicInteraction == physicInteractions.SawHand)
+        #region Saw Arm Jump
+        if(interaction.physicInteraction == physicInteractions.SawHandJump)
         {
-            Transform sawOrigin;
-
-            //Let's apply the placement of the arm through the robot manager.
-            switch (armPlacement)
-            {
-                case RobotArmPlacement.Left:
-                    sawOrigin = RobotManager.Instance.armManagement.leftArm.prefab.transform;
-                    break;
-
-                case RobotArmPlacement.Right:
-                    sawOrigin = RobotManager.Instance.armManagement.rightArm.prefab.transform;
-                    break;
-
-                default:
-                    return;
-            }
-
-            // Deve stare sul player: controlla il Rigidbody del player.
-            SawHandManager sawHand = GetComponent<SawHandManager>();
-            if (sawHand == null)
-                sawHand = gameObject.AddComponent<SawHandManager>();
-
-            //What does sawHand Configure do?
-            sawHand.Configure(sawOrigin);
+            Vector3 sawJumpDirection = myCamera.transform.forward + interaction.distance;
+            ApplyForce(sawJumpDirection, interaction.magnitude, interaction.forceMode);
         }
         #endregion
+
 
     }
 
@@ -188,4 +292,16 @@ public class PlayerPhysics : MonoBehaviour
     {
         rb.linearVelocity = new Vector3 (rb.linearVelocity.x, 0, rb.linearVelocity.z);
     }
+
+    public Rigidbody getRigidbody() { return rb; }
+
+    public bool areWeAccelerating()
+    {
+        if (startAcceleratingLeft || startAcceleratingRight)
+        {
+            return true;
+        }
+        else return false;
+    }
+    
 }

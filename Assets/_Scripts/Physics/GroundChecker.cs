@@ -33,8 +33,13 @@ public class GroundChecker : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        //when leaving the ground, start a coyote timer to be able to jump with input wiggle room
-        StartCoroutine(nameof(CoyoteTimer));
+        //start coyote timer if your not accelerating
+        if (!RobotManager.Instance.physics.startAcceleratingLeft || !RobotManager.Instance.physics.startAcceleratingRight)
+        {
+            //when leaving the ground, start a coyote timer to be able to jump with input wiggle room
+            StartCoroutine(nameof(CoyoteTimer));
+        }else isGrounded = false;
+        
     }
 
     public void InitializeScript( PlayerPhysics scr)
