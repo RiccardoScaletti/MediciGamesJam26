@@ -165,4 +165,10 @@ public class RobotController : MonoBehaviour
             PlayerPhysics.Instance.groundCheck.isJumping = true;
         }
     }
+
+    public void ResetMoveInput()
+    {
+        MoveInput = Vector2.zero;
+    }
+
 }

@@ -55,11 +55,6 @@ public class RobotMovement : MonoBehaviour
         return angle > 180f ? angle - 360f : angle;
     }
 
-    private void Start()
-    {
-        
-    }
-
     private void Update()
     {
         //read input from controller script
@@ -178,5 +173,18 @@ public class RobotMovement : MonoBehaviour
         );
         #endregion
 
+    }
+
+    public void OnSpawnResetVelocity()
+    {
+        Debug.Log("Reset called\n velocity = " + robotRigidbody.linearVelocity);
+
+        controllerScript.ResetMoveInput();
+
+        // Clear movement speed (Use rb.linearVelocity for Unity 6+)
+        robotRigidbody.linearVelocity = Vector3.zero;
+
+        // Clear rotation/spin speed
+        robotRigidbody.angularVelocity = Vector3.zero;
     }
 }
