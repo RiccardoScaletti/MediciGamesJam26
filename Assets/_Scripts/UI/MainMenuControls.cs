@@ -8,11 +8,14 @@ public class MainMenuControls : MonoBehaviour
     private RobotControls controls;
 
     [SerializeField] private GameObject mainMenuCanvas;
+    [SerializeField] private GameObject controllerCanvas;
     [SerializeField] private GameObject tutorialCanvas;
+
 
 
     [SerializeField] private Button[] optionButtons;
     [SerializeField] private Button okTutorialButton;
+    [SerializeField] private Button okControllerButton;
     [SerializeField] private int buttonsIndex = 0;
 
     private void Awake()
@@ -20,6 +23,7 @@ public class MainMenuControls : MonoBehaviour
         controls = new RobotControls();
         mainMenuCanvas.SetActive(true);
         tutorialCanvas.SetActive(false);
+        controllerCanvas.SetActive(false);
     }
 
     private void Start()
@@ -73,6 +77,16 @@ public class MainMenuControls : MonoBehaviour
 
     public void OnTutorialPressed()
     {
+        Debug.Log("OnTutorialPressed");
+        controllerCanvas.SetActive(true);
+        tutorialCanvas.SetActive(false);
+        mainMenuCanvas.SetActive(false);
+        okControllerButton.Select();
+    }
+    public void OnOkControllerPressed()
+    {
+        Debug.Log("ok controller pressed");
+        controllerCanvas.SetActive(false);
         tutorialCanvas.SetActive(true);
         mainMenuCanvas.SetActive(false);
         okTutorialButton.Select();
@@ -80,9 +94,13 @@ public class MainMenuControls : MonoBehaviour
 
     public void OnOkTutorialPressed()
     {
+        Debug.Log("ok tutorial pressed");
+        controllerCanvas.SetActive(false);
         tutorialCanvas.SetActive(false);
-        mainMenuCanvas.SetActive(true);
+        mainMenuCanvas.SetActive(true);   
         optionButtons[0].Select();
     }
+
+  
 
 }
