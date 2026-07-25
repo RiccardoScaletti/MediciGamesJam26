@@ -36,26 +36,26 @@ public class MovingPlatform : MonoBehaviour
 
             while (transform.position != target.position || transform.rotation != target.rotation)
             {
-                //transform.position = Vector3.MoveTowards(
-                //    transform.position,
-                //    target.position,
-                //    speed * Time.deltaTime
-                //);
-                //transform.rotation = Quaternion.RotateTowards(
-                //    transform.rotation,
-                //    target.rotation,
-                //    rotationSpeed * Time.deltaTime
-                //);
-                rb.MovePosition(Vector3.MoveTowards(
+                transform.position = Vector3.MoveTowards(
                     transform.position,
                     target.position,
                     speed * Time.deltaTime
-                ));
-                rb.MoveRotation(Quaternion.RotateTowards(
+                );
+                transform.rotation = Quaternion.RotateTowards(
                     transform.rotation,
                     target.rotation,
                     rotationSpeed * Time.deltaTime
-                ));
+                );
+                //rb.MovePosition(Vector3.MoveTowards(
+                //    transform.position,
+                //    target.position,
+                //    speed * Time.deltaTime
+                //));
+                //rb.MoveRotation(Quaternion.RotateTowards(
+                //    transform.rotation,
+                //    target.rotation,
+                //    rotationSpeed * Time.deltaTime
+                //));
 
                 yield return null;
             }

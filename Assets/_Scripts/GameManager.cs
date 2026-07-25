@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
         robotControllerScr = player.GetComponent<RobotController>();
         levelRotationScr = GetComponent<LevelRotation>();
         gameUIControllerScr = GetComponent<GameUIController>();
-        GameEvents.RaiseLevelCompleted();
 
         //take away inputs till choices are made.
         robotControllerScr.enabled = false;
