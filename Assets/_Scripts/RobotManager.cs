@@ -8,6 +8,7 @@ public class RobotManager : MonoBehaviour
     public RobotMovement robotMovement;
     public RobotController robotController;
     public PlayerPhysics physics;
+    public PlayerAnimation robotAnimation;
 
     public Transform projectileSpawner;
 

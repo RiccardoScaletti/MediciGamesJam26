@@ -12,7 +12,7 @@ public class CanvasPhysicsDebugger : MonoBehaviour
 
     public void callPhysicsMethod()
     {
-        playerPhysicsScr.ApplyForce(debugDirection, debugMagnitude, debugForceMode);
+        playerPhysicsScr.ApplyForce(debugDirection, debugMagnitude, debugForceMode, RobotArmPlacement.Terminator);
     }
 
     public void StorePlayerPhysicScript(PlayerPhysics scr)

@@ -74,7 +74,7 @@ public class RobotController : MonoBehaviour
         {
             leftArmHeld = false;
             PlayerPhysics.Instance.startAcceleratingLeft = false;
-            
+            RobotManager.Instance.robotAnimation.UpdateArmAnimationState(RobotArmPlacement.Left, (int)armAnimationStates.Idle, false);
         }
         PhysicsInteractionManager.instance.ResetInteractionReference(RobotArmPlacement.Left);
     }
@@ -119,6 +119,7 @@ public class RobotController : MonoBehaviour
         {
             rightArmHeld = false;
             PlayerPhysics.Instance.startAcceleratingRight = false;
+            RobotManager.Instance.robotAnimation.UpdateArmAnimationState(RobotArmPlacement.Right, (int)armAnimationStates.Idle, false);
         }
 
         PhysicsInteractionManager.instance.ResetInteractionReference(RobotArmPlacement.Right);
