@@ -251,6 +251,40 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Texture2DInputMaterialSlot",
+    "m_ObjectId": "09dd9babf77d4ef99ead79589eb2938b",
+    "m_Id": 270596278,
+    "m_DisplayName": "AdobeStock_291980185",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_AdobeStock_291980185",
+    "m_StageCapability": 2,
+    "m_BareResource": false,
+    "m_Texture": {
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"44827b7125d02e34e9d571c740291ac8\",\"type\":3}}",
+        "m_Guid": ""
+    },
+    "m_DefaultType": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "122ab09946b64a85ac212330f71e1e71",
+    "m_Id": 892189481,
+    "m_DisplayName": "Frequency",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_Frequency",
+    "m_StageCapability": 2,
+    "m_Value": 0.5,
+    "m_DefaultValue": 0.0,
+    "m_Labels": [],
+    "m_LiteralMode": false
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.ColorRGBMaterialSlot",
     "m_ObjectId": "19fb5e5c32c8472bb950eddb10abfe4e",
     "m_Id": 0,
@@ -628,6 +662,15 @@
             "m_Id": "58a3b5b7a7004e0a929ba572e989ab58"
         },
         {
+            "m_Id": "122ab09946b64a85ac212330f71e1e71"
+        },
+        {
+            "m_Id": "ce7e460eda9142cb86042d7d3b96cdc8"
+        },
+        {
+            "m_Id": "09dd9babf77d4ef99ead79589eb2938b"
+        },
+        {
             "m_Id": "65fb20a40f104d7eada2b34199433355"
         }
     ],
@@ -644,13 +687,19 @@
         "c6748d70-9114-4504-b10b-9818e688d687",
         "a90346fe-0d69-4cbe-bfbc-87ec4976d035",
         "31fc5a26-d663-4df8-b6cf-00de5ed6f4c0",
-        "5a2f02f4-d015-417a-a7a6-d686ebdc128b"
+        "5a2f02f4-d015-417a-a7a6-d686ebdc128b",
+        "a2f7fbc6-d33a-4943-a0d7-a36d75443ab3",
+        "75f42f4a-5c5a-4a7f-aa83-d2f056a1878d",
+        "e4ec0a52-721f-44fd-bb39-7e6340b94fd3"
     ],
     "m_PropertyIds": [
         473866035,
         1022001505,
         1659934125,
-        378644653
+        378644653,
+        892189481,
+        1121866220,
+        270596278
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
@@ -947,7 +996,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_Cutoff",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": 0.5,
     "m_DefaultValue": 0.0,
     "m_Labels": [],
@@ -976,6 +1025,27 @@
     },
     "m_Labels": [],
     "m_Space": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
+    "m_ObjectId": "ce7e460eda9142cb86042d7d3b96cdc8",
+    "m_Id": 1121866220,
+    "m_DisplayName": "Cutoff (1)",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_Cutoff_1",
+    "m_StageCapability": 2,
+    "m_Value": {
+        "x": 0.10000000149011612,
+        "y": 0.8999999761581421
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_Labels": []
 }
 
 {
