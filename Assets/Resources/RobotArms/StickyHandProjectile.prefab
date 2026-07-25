@@ -154,3 +154,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StickyHandProjectile
   manager: {fileID: 0}
+  projectileLifetime: 2
+  projectileDestroyDelay: 0.2

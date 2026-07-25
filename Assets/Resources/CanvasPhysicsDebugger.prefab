@@ -798,4 +798,4 @@ MonoBehaviour:
   debugMagnitude: 20
   debugForceMode: 1
   debugArmPlacement: 0
-  debugArmToLoad: {fileID: 11400000, guid: ae43176aebf760047a9c6f787bad4413, type: 2}
+  debugArmToLoad: {fileID: 11400000, guid: 43499d8df43f5a84d8a3075818c31411, type: 2}

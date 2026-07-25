@@ -11,7 +11,8 @@ public class StickyHandProjectile : MonoBehaviour
     //freeze self if collision happens
     //read velocity needed from sticky manager
     Rigidbody rb;
-    [HideInInspector]public StickyHandManager manager;
+    public StickyHandManager manager;
+
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class StickyHandProjectile : MonoBehaviour
             rb = GetComponent<Rigidbody>();
         }
         //Debug.Log("<color=green>Projectile from Sticky Hand Spawned</color>");
+        
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -34,9 +36,15 @@ public class StickyHandProjectile : MonoBehaviour
         //rb.linearVelocity = Vector3.zero;
         //rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
-        manager.isProjectileCollided = true;
+        
         Debug.Log(collision.gameObject.name + "is collided object");
-        StopCoroutine(nameof(ProjectileLifetime));
+        
+
+        if (manager)
+        {
+            manager.isProjectileCollided = true;
+            //manager.StopCoroutine(nameof(manager.ProjectileLifetime));
+        }
     }
 
     public void StartProjectilePath(Vector3 direction, float magnitude)
@@ -44,8 +52,9 @@ public class StickyHandProjectile : MonoBehaviour
         //enter vector data here
         //enter magnitude data here
         rb.AddForce(direction * magnitude, ForceMode.Impulse);
-        manager.isProjectileAlive = true;//set condition to enter second state on sticky hand
-        StartCoroutine(nameof(ProjectileLifetime));
+
+        manager.currentProjectile = this;
+        
     }
 
     private void Update()
@@ -58,28 +67,14 @@ public class StickyHandProjectile : MonoBehaviour
             }
         }
 
+        if(manager == null)
+        {
+            Destroy(this.gameObject);
+        }
         
-        
     }
 
-    public void DestroyProjectile()
-    {
-        manager.isProjectileAlive = false;
-        manager.ToggleHand(manager.isProjectileAlive);
-        manager.isProjectileCollided=false;
-        manager.currentProjectile = null;
-        manager.worldPivot=null;
-        Destroy(this.gameObject);
-    }
 
-    public IEnumerator ProjectileLifetime()
-    {
-        yield return new WaitForSeconds(manager.projectileLifetime);
-        DestroyProjectile();
-    }
 
-    private void OnDestroy()
-    {
-        //Debug.Log("<color=orange>Projectile from Sticky Hand Destroyed");
-    }
+ 
 }

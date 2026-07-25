@@ -23,7 +23,9 @@ public class PlayerPhysics : MonoBehaviour
     //have parameter that gives slight wiggle room to input jump when moving off a platform
     public float coyoteTimer;
     public bool startAcceleratingLeft, startAcceleratingRight;
-    
+
+    public bool stickySecondState = false;
+    public Vector3 stickyDirection;
 
     private void Start()
     {
@@ -267,24 +269,35 @@ public class PlayerPhysics : MonoBehaviour
             if (stickyScr)
             {
                 //first state, spawn projectile
-                if (!stickyScr.isProjectileAlive)
+                if (!stickySecondState)
                 {
                     //first press, spawn projectile using camera data
                     stickyScr.SpawnProjectile(myCamera.gameObject.transform.forward);
                     RobotManager.Instance.robotAnimation.UpdateArmAnimationState(armPlacement, (int)armAnimationStates.Claw, true);
+
                 }
-                else//second state, feed direction and apply force
+                //second state, feed direction and apply force
+                else if (stickySecondState)
                 {
                     Debug.Log("<color=orange>Sticky Projectile distance code entered");
                     //get transform data and load physic interaction
-                    Vector3 stickyDirection = (stickyScr.worldPivot.transform.position - stickyScr.armPivot.transform.position).normalized;
+                    //stickyDirection = stickyScr.stickyDirection;
                     //apply force that pulls character towards world point of projectile
                     ApplyForce(stickyDirection, interaction.magnitude, interaction.forceMode, armPlacement);
-                    stickyScr.currentProjectile.DestroyProjectile();
+                    //stickyScr.startDestroyTimer();
                     RobotManager.Instance.robotAnimation.UpdateArmAnimationState(armPlacement, (int)armAnimationStates.Idle, false);
+
+                    Debug.Log(
+                        $"Force:{interaction.magnitude} " +
+                        $"Magnitude:{stickyDirection} " +
+                        $"Mode:{interaction.forceMode}"
+                    );
+
+                    stickySecondState = false;
                 }
             }
-
+            //clear reference
+            stickyScr = null;
         }
         #endregion
 

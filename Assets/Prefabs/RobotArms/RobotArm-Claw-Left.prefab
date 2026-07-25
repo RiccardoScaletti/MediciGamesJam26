@@ -258,7 +258,6 @@ MonoBehaviour:
   isProjectileCollided: 0
   projectileSpeed: 20
   armRender: {fileID: 3555305952896120834}
-  projectileLifetime: 3
 --- !u!1 &5203175059098885991
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,6 +669,10 @@ PrefabInstance:
     - target: {fileID: 3916474771000223647, guid: bd55f0d4b9114774c9aae95b28e188a0, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7446942662848290758, guid: bd55f0d4b9114774c9aae95b28e188a0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7612392296255895378, guid: bd55f0d4b9114774c9aae95b28e188a0, type: 3}
