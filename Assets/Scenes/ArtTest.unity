@@ -252,6 +252,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 245d9db862926014d88f6fe3e9a2d708, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b2624ef2e6ded43448cfd55c83e2fb84, type: 2}
     - target: {fileID: 919132149155446097, guid: 245d9db862926014d88f6fe3e9a2d708, type: 3}
       propertyPath: m_Name
       value: CC_Spacestation
@@ -627,6 +631,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 0f64fe6122791264db5e57b80132551d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f308d2af046108643906f330fd68906c, type: 2}
     - target: {fileID: 919132149155446097, guid: 0f64fe6122791264db5e57b80132551d, type: 3}
       propertyPath: m_Name
       value: CC_Level
