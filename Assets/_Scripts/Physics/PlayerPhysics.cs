@@ -11,6 +11,7 @@ public class PlayerPhysics : MonoBehaviour
     [SerializeField] private AudioClip cannonSound;
     [SerializeField] private AudioClip hookSound;
     [SerializeField] private AudioClip SawSound;
+    [SerializeField] private AudioClip jumpSound;
 
     public bool debugActive;
     private Vector3 direction;
@@ -238,6 +239,7 @@ public class PlayerPhysics : MonoBehaviour
         {
             //apply jump force in vertical direction
             ApplyForce(interaction.distance, interaction.magnitude, interaction.forceMode, armPlacement);
+            FX_Source.PlayOneShot(jumpSound);
         }
         #endregion
 
