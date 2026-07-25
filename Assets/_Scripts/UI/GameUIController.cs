@@ -21,7 +21,6 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private Button[] leftArmChoices;
     [SerializeField] private Button[] rightArmChoices;
 
-    [SerializeField] private Image robotImage;
     [SerializeField] private Image[] leftArmImages;
     [SerializeField] private Image[] rightArmImages;
 

@@ -7,12 +7,19 @@ public class MainMenuControls : MonoBehaviour
 {
     private RobotControls controls;
 
-    [SerializeField]private Button[] optionButtons;
-    private int buttonsIndex = 0;
+    [SerializeField] private GameObject mainMenuCanvas;
+    [SerializeField] private GameObject tutorialCanvas;
+
+
+    [SerializeField] private Button[] optionButtons;
+    [SerializeField] private Button okTutorialButton;
+    [SerializeField] private int buttonsIndex = 0;
 
     private void Awake()
     {
         controls = new RobotControls();
+        mainMenuCanvas.SetActive(true);
+        tutorialCanvas.SetActive(false);
     }
 
     private void Start()
@@ -41,7 +48,7 @@ public class MainMenuControls : MonoBehaviour
 
     private void OnConfirm(InputAction.CallbackContext context)
     {
-        optionButtons[buttonsIndex].onClick.Invoke();
+        optionButtons[buttonsIndex].onClick.Invoke(); 
     }
 
     private void OnSelectPrevious(InputAction.CallbackContext context)
@@ -62,6 +69,20 @@ public class MainMenuControls : MonoBehaviour
             buttonsIndex = 0;
         }
         optionButtons[buttonsIndex].Select();
+    }
+
+    public void OnTutorialPressed()
+    {
+        tutorialCanvas.SetActive(true);
+        mainMenuCanvas.SetActive(false);
+        okTutorialButton.Select();
+    }
+
+    public void OnOkTutorialPressed()
+    {
+        tutorialCanvas.SetActive(false);
+        mainMenuCanvas.SetActive(true);
+        optionButtons[0].Select();
     }
 
 }
