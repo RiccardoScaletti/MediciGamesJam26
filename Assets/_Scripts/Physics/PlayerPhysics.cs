@@ -7,6 +7,11 @@ public class PlayerPhysics : MonoBehaviour
     public static PlayerPhysics Instance;
 
     private Rigidbody rb;
+    [SerializeField] private AudioSource FX_Source;
+    [SerializeField] private AudioClip cannonSound;
+    [SerializeField] private AudioClip hookSound;
+    [SerializeField] private AudioClip SawSound;
+    [SerializeField] private AudioClip jumpSound;
 
     public bool debugActive;
     private Vector3 direction;
@@ -26,6 +31,8 @@ public class PlayerPhysics : MonoBehaviour
 
     public bool stickySecondState = false;
     public Vector3 stickyDirection;
+    private float nextCannonFireTime;
+    
 
     private void Start()
     {
@@ -202,6 +209,7 @@ public class PlayerPhysics : MonoBehaviour
                     if (rayDistance <= sawHandManager.acquireDistance)
                     {
                         isTestSuccess = true;
+                        FX_Source.PlayOneShot(SawSound);
                     }
 
                 }
@@ -218,6 +226,9 @@ public class PlayerPhysics : MonoBehaviour
     //these are intearction loading for one shot physics
     public void LoadPhysicInteraction(SO_PhysicsInteraction interaction, RobotArmPlacement armPlacement)
     {
+        if (interaction.physicInteraction == physicInteractions.Cannon && Time.time < nextCannonFireTime)
+            return;
+
         if (debugActive)
         {
             Debug.Log("<color=yellow>Loading: "+interaction.name+"</color>");
@@ -231,14 +242,17 @@ public class PlayerPhysics : MonoBehaviour
         {
             //apply jump force in vertical direction
             ApplyForce(interaction.distance, interaction.magnitude, interaction.forceMode, armPlacement);
+            FX_Source.PlayOneShot(jumpSound);
         }
         #endregion
 
         #region Cannon
         if (interaction.physicInteraction == physicInteractions.Cannon)
         {
+            nextCannonFireTime = Time.time + 1f;
             //apply cannon force in direction that is oposite to where camera is pointing
             ApplyForce(-1*myCamera.gameObject.transform.forward, interaction.magnitude, interaction.forceMode, armPlacement);
+            FX_Source.PlayOneShot(cannonSound);
             RobotManager.Instance.robotAnimation.UpdateArmAnimationState(armPlacement, (int)armAnimationStates.Cannon, false);
             RobotManager.Instance.robotAnimation.callDelayedAnimationUpdate(armPlacement,(int)armAnimationStates.Idle, false);
         }
@@ -273,6 +287,7 @@ public class PlayerPhysics : MonoBehaviour
                 {
                     //first press, spawn projectile using camera data
                     stickyScr.SpawnProjectile(myCamera.gameObject.transform.forward);
+                    FX_Source.PlayOneShot(hookSound);
                     RobotManager.Instance.robotAnimation.UpdateArmAnimationState(armPlacement, (int)armAnimationStates.Claw, true);
 
                 }

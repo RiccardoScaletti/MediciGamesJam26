@@ -24,6 +24,10 @@ public class RobotMovement : MonoBehaviour
     [SerializeField] private float acceleration = 8f;
     [SerializeField] private float deceleration = 3f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource rollingSource;
+    [SerializeField] private AudioClip rollingSound;
+
     [Header("Rotation")]
     [SerializeField] private float ballRadius = 0.5f;
     [SerializeField] private float rotationSpeed = 360f;
@@ -44,6 +48,8 @@ public class RobotMovement : MonoBehaviour
         robotRigidbody = GetComponent<Rigidbody>();
         controllerScript = GetComponent<RobotController>();
         bodyBaseRotation = bodyVisual.localRotation;
+        rollingSource.clip = rollingSound;
+        rollingSource.loop = true;
 
         Vector3 initialRotation = cameraRoot.localEulerAngles;
         currentCamTiltY = ToSignedAngle(initialRotation.x);
@@ -129,6 +135,16 @@ public class RobotMovement : MonoBehaviour
             robotRigidbody.linearVelocity.y,
             inputVelocity.z
         );
+
+        if (moveDirection.sqrMagnitude > 0.01f)
+        {
+            if (!rollingSource.isPlaying)
+                rollingSource.Play();
+        }
+        else if (rollingSource.isPlaying)
+        {
+            rollingSource.Stop();
+        }
 
         // Visual rolling only.
         float rollAngle = ballRadius * Mathf.Rad2Deg;

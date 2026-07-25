@@ -24,6 +24,8 @@ public class ChangingPlatform : MonoBehaviour
 
         rb.position = checkpoints[0].position;
         rb.rotation = checkpoints[0].rotation;
+
+        MoveToRandomCheckpoint();
     }
 
     private void OnEnable()
