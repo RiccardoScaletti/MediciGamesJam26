@@ -43,7 +43,7 @@ public class StickyHandProjectile : MonoBehaviour
         if (manager)
         {
             manager.isProjectileCollided = true;
-            //manager.StopCoroutine(nameof(manager.ProjectileLifetime));
+            //manager.StopProjectileLifetime();
         }
     }
 

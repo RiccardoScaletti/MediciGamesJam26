@@ -32,6 +32,9 @@ public class PlayerPhysics : MonoBehaviour
     public bool stickySecondState = false;
     public Vector3 stickyDirection;
     private float nextCannonFireTime;
+
+    [SerializeField] private float sawMass;
+    private float regMass;
     
 
     private void Start()
@@ -57,6 +60,8 @@ public class PlayerPhysics : MonoBehaviour
                 debugScr.StorePlayerPhysicScript(this);
             }
         }
+
+        regMass = rb.mass;
 
         Instantiate(Resources.Load<GameObject>("CanvasHUD"));
 
@@ -91,6 +96,7 @@ public class PlayerPhysics : MonoBehaviour
         //apply acceleration force here
         if (startAcceleratingLeft)
         {
+            rb.mass = sawMass;
             SO_PhysicsInteraction leftInteraction = PhysicsInteractionManager.instance.interactionLoadedLeft;
             ApplyForce(accelerationDirection, leftInteraction.magnitude, leftInteraction.forceMode, RobotArmPlacement.Left);
             RobotManager.Instance.robotAnimation.UpdateArmAnimationState(RobotArmPlacement.Left, (int)armAnimationStates.Saw, true);
@@ -104,6 +110,7 @@ public class PlayerPhysics : MonoBehaviour
         }
         if (startAcceleratingRight)
         {
+            rb.mass = sawMass;
             SO_PhysicsInteraction rightIntearction = PhysicsInteractionManager.instance.interactionLoadedRight;
             ApplyForce(accelerationDirection, rightIntearction.magnitude, rightIntearction.forceMode, RobotArmPlacement.Right);
             RobotManager.Instance.robotAnimation.UpdateArmAnimationState(RobotArmPlacement.Right, (int)armAnimationStates.Saw,true);
@@ -121,7 +128,7 @@ public class PlayerPhysics : MonoBehaviour
 
     private void LoadSawArmJump()
     {
-        
+        rb.mass = regMass;
         LoadPhysicInteraction(PhysicsInteractionManager.instance.interactionsList[4], RobotArmPlacement.Terminator);
        
     }
@@ -301,7 +308,7 @@ public class PlayerPhysics : MonoBehaviour
                     ApplyForce(stickyDirection, interaction.magnitude, interaction.forceMode, armPlacement);
                     //stickyScr.startDestroyTimer();
                     RobotManager.Instance.robotAnimation.UpdateArmAnimationState(armPlacement, (int)armAnimationStates.Idle, false);
-
+                    stickyScr.TurnGrappleOff();
                     Debug.Log(
                         $"Force:{interaction.magnitude} " +
                         $"Magnitude:{stickyDirection} " +

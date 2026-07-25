@@ -33,10 +33,10 @@ public class StickyHandManager : MonoBehaviour
 
     public void SpawnProjectile(Vector3 direction)
     {
-        
+
 
         //turn off hand object
-
+        TurnGrappleOn();
 
         //spawn projectile
         currentProjectile = Instantiate(
@@ -49,7 +49,7 @@ public class StickyHandManager : MonoBehaviour
         currentProjectile.StartProjectilePath(direction, projectileSpeed);
         isProjectileAlive = true;
         //projectile will: start state 2 for player physics and give reference to manager to track
-        //StartCoroutine(nameof(ProjectileLifetime));
+        
     }
 
     private void Start()
@@ -100,6 +100,17 @@ public class StickyHandManager : MonoBehaviour
             armRender.SetPosition(1, grappleHandObject.transform.position);
         }
     }
+    public void TurnGrappleOn()
+    {
+        grappleHandObject.SetActive(false);
+    }
+
+    public void TurnGrappleOff()
+    {
+        grappleHandObject.SetActive(true);
+        armRender.SetPosition(1, grappleHandObject.transform.position);
+    }
+
 
     //public IEnumerator ProjectileLifetime()
     //{
@@ -126,5 +137,10 @@ public class StickyHandManager : MonoBehaviour
     //    currentProjectile = null;
     //    worldPivot = null;
     //    Destroy(currentProjectile.gameObject);
+    //}
+
+    //public void StopProjectileLifetime()
+    //{
+    //    StopCoroutine(nameof(ProjectileLifetime));
     //}
 }

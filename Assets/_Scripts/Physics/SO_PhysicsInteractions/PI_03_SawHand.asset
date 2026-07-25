@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SO_PhysicsInteraction
   physicInteraction: 3
   physicDirectionType: 0
-  magnitude: 5000
+  magnitude: 1000
   distance: {x: 0, y: 0, z: 1}
   forceMode: 5
   LeftArmModel: {fileID: 3490363452275816724, guid: 05895b90b7516314fb4f12b180966ccd, type: 3}
