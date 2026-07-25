@@ -1,7 +1,8 @@
 // GameEvents.cs
 using System;
+using UnityEngine;
 
-public static class GameEvents
+public class GameEvents : MonoBehaviour
 {
     public static event Action LevelCompleted;
 

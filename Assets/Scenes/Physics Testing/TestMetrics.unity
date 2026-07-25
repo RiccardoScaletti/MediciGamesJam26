@@ -1370,6 +1370,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a9499e5d1a52a814ea3a96b979c93594, type: 2}
   - {fileID: 11400000, guid: ae43176aebf760047a9c6f787bad4413, type: 2}
   - {fileID: 11400000, guid: 43499d8df43f5a84d8a3075818c31411, type: 2}
+  - {fileID: 11400000, guid: 32214ce15b55cd7419a575f5008c8579, type: 2}
+  - {fileID: 11400000, guid: 3bcd8e2dc50560946968535de4460e4a, type: 2}
+  interactionLoadedLeft: {fileID: 0}
+  interactionLoadedRight: {fileID: 0}
 --- !u!1 &1493320520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1846,10 +1850,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3213625855459347255, guid: e24317c23ffea914095c43d9e372de27, type: 3}
-      propertyPath: rightArm.prefab
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3821762430456068238, guid: e24317c23ffea914095c43d9e372de27, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

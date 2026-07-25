@@ -14,9 +14,9 @@ public class StickyHandManager : MonoBehaviour
     public float projectileLifetime;
     
 
-    //get a vector and magnitude from two different points in the world. 
+    //get a vector  from two different points in the world. 
 
-    //send direction and magnitude data to physic interaction method.
+    //send direction  data to physic interaction method.
 
     //spawn projectile on first button click, turn off hand on first button click.
 
@@ -26,6 +26,8 @@ public class StickyHandManager : MonoBehaviour
     
     public void SpawnProjectile(Vector3 direction)
     {
+        
+
         //turn off hand object
 
 
@@ -45,22 +47,34 @@ public class StickyHandManager : MonoBehaviour
     {
         
         ToggleHand(false);
+        isProjectileAlive = false;
     }
 
     private void Update()
     {
         armRender.SetPosition(0, armPivot.position);
+        //entering second state
         if (isProjectileAlive)
         {
+            //send world data to line renderer
             armRender.SetPosition(1, currentProjectile.transform.position);
-            
+            if (RobotManager.Instance.physics.debugActive)
+            {
+                if (worldPivot)
+                {
+                    Debug.Log("<color=orange>Distance of sticky: " + (worldPivot.transform.position - armPivot.transform.position).normalized);
+                }
+                
+            }
         }
-        else
+        else//set line renderer to default state
         {
             armRender.SetPosition(1, grappleHandObject.transform.position);
         }
+
     }
 
+    //use to toggle between visuals
     public void ToggleHand(bool toggle)
     {
         //planning to use isprojectile active as bool for toggle function

@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -23,10 +21,10 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private Button[] leftArmChoices;
     [SerializeField] private Button[] rightArmChoices;
 
-    [SerializeField] private Image robotImage;
     [SerializeField] private Image[] leftArmImages;
     [SerializeField] private Image[] rightArmImages;
 
+    [SerializeField] private SO_PhysicsInteraction[] armsSO;
 
     private ArmChoice currentArmChoice;
     public ArmChoice chosenLeftArm = ArmChoice.Empty;
@@ -263,7 +261,7 @@ public class GameUIController : MonoBehaviour
 
     private void MakeChoice(InputAction.CallbackContext context)
     {
-        if (chosenLeftArm == ArmChoice.Empty)
+        if (chosenLeftArm == ArmChoice.Empty) //skip if arm was already chosen
         {
             chosenLeftArm = currentArmChoice;
             //Debug.Log("Left arm choice: " + chosenLeftArm);
@@ -282,5 +280,47 @@ public class GameUIController : MonoBehaviour
 
             HideChoiceMenu();
         }
+
+        AssignArmsAfterChoice();
+    }
+
+    private void AssignArmsAfterChoice()
+    {
+        switch (chosenLeftArm)
+        {
+            case ArmChoice.Cannon:
+                RobotManager.Instance.armManagement.UpdateArmChoice(RobotArmPlacement.Left, armsSO[0]);
+                break;
+            case ArmChoice.Sticky:
+                RobotManager.Instance.armManagement.UpdateArmChoice(RobotArmPlacement.Left, armsSO[1]);
+                break;
+            case ArmChoice.Saw:
+                RobotManager.Instance.armManagement.UpdateArmChoice(RobotArmPlacement.Left, armsSO[2]);
+                break;
+            case ArmChoice.Empty:
+                Debug.LogWarning("NO LEFT ARM SPAWNED");
+                break;
+            default:
+                break;
+        }
+
+        switch (chosenRightArm)
+        {
+            case ArmChoice.Cannon:
+                RobotManager.Instance.armManagement.UpdateArmChoice(RobotArmPlacement.Right, armsSO[0]);
+                break;
+            case ArmChoice.Sticky:
+                RobotManager.Instance.armManagement.UpdateArmChoice(RobotArmPlacement.Right, armsSO[1]);
+                break;
+            case ArmChoice.Saw:
+                RobotManager.Instance.armManagement.UpdateArmChoice(RobotArmPlacement.Right, armsSO[2]);
+                break;
+            case ArmChoice.Empty:
+                Debug.LogWarning("NO RIGHT ARM SPAWNED");
+                break;
+            default:
+                break;
+        }
+
     }
 }
