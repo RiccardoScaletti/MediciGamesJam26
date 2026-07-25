@@ -44,7 +44,7 @@ public class StickyHandProjectile : MonoBehaviour
         //enter vector data here
         //enter magnitude data here
         rb.AddForce(direction * magnitude, ForceMode.Impulse);
-        manager.isProjectileAlive = true;
+        manager.isProjectileAlive = true;//set condition to enter second state on sticky hand
         StartCoroutine(nameof(ProjectileLifetime));
     }
 
@@ -54,7 +54,7 @@ public class StickyHandProjectile : MonoBehaviour
         {
             if (manager.isProjectileCollided)
             {
-                manager.worldPivot = this.transform;
+                manager.worldPivot = this.transform;//feed world data back into manager
             }
         }
 

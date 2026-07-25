@@ -266,14 +266,14 @@ public class PlayerPhysics : MonoBehaviour
             //handle states of the sticky hand once script is initialized
             if (stickyScr)
             {
-                
+                //first state, spawn projectile
                 if (!stickyScr.isProjectileAlive)
                 {
                     //first press, spawn projectile using camera data
                     stickyScr.SpawnProjectile(myCamera.gameObject.transform.forward);
                     RobotManager.Instance.robotAnimation.UpdateArmAnimationState(armPlacement, (int)armAnimationStates.Claw, true);
                 }
-                else
+                else//second state, feed direction and apply force
                 {
                     Debug.Log("<color=orange>Sticky Projectile distance code entered");
                     //get transform data and load physic interaction
