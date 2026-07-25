@@ -9,7 +9,6 @@ public class LevelRotation : MonoBehaviour
 
     public void RotateLevel()
     {
-        Debug.Log("Rotate Level!");
         targetRotation = Quaternion.Euler(0f, 0f, arenaObj.transform.eulerAngles.z + 90f);
 
         needsRotation = true;

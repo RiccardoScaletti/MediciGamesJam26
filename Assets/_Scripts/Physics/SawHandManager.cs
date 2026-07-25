@@ -9,7 +9,7 @@ using UnityEngine;
 /// Find parts that need fixing with "XXX" comments. The main missing piece is reading input for the saw button and movement direction.
 /// </summary>
 
-[RequireComponent(typeof(Rigidbody))]
+
 public class SawHandManager : MonoBehaviour
 {
     [Header("References")]
@@ -20,7 +20,7 @@ public class SawHandManager : MonoBehaviour
 
     [Header("Detection")]
     [SerializeField] private LayerMask sawableSurfaces = ~0;
-    [SerializeField, Min(0.01f)] private float acquireDistance = 0.8f;
+    public float acquireDistance = 0.8f;
     [SerializeField, Min(0.01f)] private float maintainDistance = 0.25f;
     [SerializeField, Range(0f, 180f)] private float maxNormalChange = 35f;
 
@@ -28,6 +28,7 @@ public class SawHandManager : MonoBehaviour
     [SerializeField, Min(0f)] private float sawSpeed = 8f;
     [SerializeField, Min(0f)] private float adhesionStrength = 30f;
     [SerializeField, Min(0f)] private float releasePush = 1.5f;
+
 
     public bool IsAttached { get; private set; }
 
@@ -58,30 +59,43 @@ public class SawHandManager : MonoBehaviour
             return;
         }
 
-        if (!IsAttached)
-        {
-            TryAttach();
-            return;
-        }
+        //if (!IsAttached)
+        //{
+        //    TryAttach();
+        //    return;
+        //}
 
         MaintainAttachment();
     }
 
-    private void TryAttach()
+    public void TryAttach()
     {
-        // The saw faces the surface it wants to bite into.
-        if (!Physics.Raycast(sawOrigin.position, sawOrigin.forward, out RaycastHit hit,
-                acquireDistance, sawableSurfaces, QueryTriggerInteraction.Ignore))
-            return;
+        //// The saw faces the surface it wants to bite into.
+        //if (!Physics.Raycast(sawOrigin.position, sawOrigin.forward, out RaycastHit hit,
+        //        acquireDistance, sawableSurfaces, QueryTriggerInteraction.Ignore))
+        //    return;
 
-        surfaceNormal = hit.normal;
-        // XXX travelDirection = GetInitialTravelDirection(surfaceNormal); GetInitialTravelDirection needs to read player input and project it onto the surface plane.
-        if (travelDirection.sqrMagnitude < 0.001f)
-            return;
+        //surfaceNormal = hit.normal;
+        //// XXX travelDirection = GetInitialTravelDirection(surfaceNormal); GetInitialTravelDirection needs to read player input and project it onto the surface plane.
+        //if (travelDirection.sqrMagnitude < 0.001f)
+        //    return;
 
-        gravityBeforeAttach = body.useGravity;
-        body.useGravity = false;
-        IsAttached = true;
+        //gravityBeforeAttach = body.useGravity;
+        //body.useGravity = false;
+        //IsAttached = true;
+
+        Debug.Log("Try attaching saw arm");
+
+        //Raycast out of camera , if distance is acceptable, attach. 
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //RaycastHit hit;
+        ////Fire Raycast
+        //if(Physics.Raycast(ray, out hit))
+        //{
+        //    //extract distance from the camera to the hit object
+        //    float distance = hit.distance;
+        //    Debug.Log(hit.collider.name + " hit: " + distance);
+        //}
     }
 
     private void MaintainAttachment()
