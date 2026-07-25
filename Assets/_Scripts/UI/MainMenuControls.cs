@@ -11,7 +11,9 @@ public class MainMenuControls : MonoBehaviour
     [SerializeField] private GameObject controllerCanvas;
     [SerializeField] private GameObject tutorialCanvas;
 
-
+    [Header("Audio")]
+    [SerializeField] private AudioClip switchSound;
+    [SerializeField] private AudioSource FXAudioSource;
 
     [SerializeField] private Button[] optionButtons;
     [SerializeField] private Button okTutorialButton;
@@ -52,11 +54,13 @@ public class MainMenuControls : MonoBehaviour
 
     private void OnConfirm(InputAction.CallbackContext context)
     {
+        FXAudioSource.PlayOneShot(switchSound);
         optionButtons[buttonsIndex].onClick.Invoke(); 
     }
 
     private void OnSelectPrevious(InputAction.CallbackContext context)
     {
+        FXAudioSource.PlayOneShot(switchSound);
         buttonsIndex++;
         if (buttonsIndex > optionButtons.Length)
         {
@@ -67,6 +71,7 @@ public class MainMenuControls : MonoBehaviour
 
     private void OnSelectNext(InputAction.CallbackContext context)
     {
+        FXAudioSource.PlayOneShot(switchSound);
         buttonsIndex--;
         if (buttonsIndex < 0)
         {
@@ -78,6 +83,7 @@ public class MainMenuControls : MonoBehaviour
     public void OnTutorialPressed()
     {
         Debug.Log("OnTutorialPressed");
+        FXAudioSource.PlayOneShot(switchSound);
         controllerCanvas.SetActive(true);
         tutorialCanvas.SetActive(false);
         mainMenuCanvas.SetActive(false);
@@ -86,6 +92,7 @@ public class MainMenuControls : MonoBehaviour
     public void OnOkControllerPressed()
     {
         Debug.Log("ok controller pressed");
+        FXAudioSource.PlayOneShot(switchSound);
         controllerCanvas.SetActive(false);
         tutorialCanvas.SetActive(true);
         mainMenuCanvas.SetActive(false);
@@ -95,6 +102,7 @@ public class MainMenuControls : MonoBehaviour
     public void OnOkTutorialPressed()
     {
         Debug.Log("ok tutorial pressed");
+        FXAudioSource.PlayOneShot(switchSound);
         controllerCanvas.SetActive(false);
         tutorialCanvas.SetActive(false);
         mainMenuCanvas.SetActive(true);   
