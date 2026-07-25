@@ -7,6 +7,11 @@ public class PlayerPhysics : MonoBehaviour
     public static PlayerPhysics Instance;
 
     private Rigidbody rb;
+    [SerializeField] private AudioSource FX_Source;
+    [SerializeField] private AudioClip cannonSound;
+    [SerializeField] private AudioClip hookSound;
+    [SerializeField] private AudioClip SawSound;
+    [SerializeField] private AudioClip jumpSound;
 
     public bool debugActive;
     private Vector3 direction;
@@ -23,6 +28,7 @@ public class PlayerPhysics : MonoBehaviour
     //have parameter that gives slight wiggle room to input jump when moving off a platform
     public float coyoteTimer;
     public bool startAcceleratingLeft, startAcceleratingRight;
+    private float nextCannonFireTime;
     
 
     private void Start()
@@ -83,21 +89,26 @@ public class PlayerPhysics : MonoBehaviour
         if (startAcceleratingLeft)
         {
             SO_PhysicsInteraction leftInteraction = PhysicsInteractionManager.instance.interactionLoadedLeft;
-            ApplyForce(accelerationDirection, leftInteraction.magnitude, leftInteraction.forceMode);
+            ApplyForce(accelerationDirection, leftInteraction.magnitude, leftInteraction.forceMode, RobotArmPlacement.Left);
+            RobotManager.Instance.robotAnimation.UpdateArmAnimationState(RobotArmPlacement.Left, (int)armAnimationStates.Saw, true);
             if (!groundCheck.isGrounded)
             {
                 LoadSawArmJump();
                 startAcceleratingLeft = false;
+                RobotManager.Instance.robotAnimation.UpdateArmAnimationState(RobotArmPlacement.Left, (int)armAnimationStates.Idle, false);
+
             }
         }
         if (startAcceleratingRight)
         {
             SO_PhysicsInteraction rightIntearction = PhysicsInteractionManager.instance.interactionLoadedRight;
-            ApplyForce(accelerationDirection, rightIntearction.magnitude, rightIntearction.forceMode);
+            ApplyForce(accelerationDirection, rightIntearction.magnitude, rightIntearction.forceMode, RobotArmPlacement.Right);
+            RobotManager.Instance.robotAnimation.UpdateArmAnimationState(RobotArmPlacement.Right, (int)armAnimationStates.Saw,true);
             if (!groundCheck.isGrounded)
             {
                 LoadSawArmJump();
                 startAcceleratingRight = false;
+                RobotManager.Instance.robotAnimation.UpdateArmAnimationState(RobotArmPlacement.Right, (int)armAnimationStates.Idle, false );
             }
         }
         #endregion
@@ -112,7 +123,7 @@ public class PlayerPhysics : MonoBehaviour
        
     }
 
-    public void ApplyForce(Vector3 newDirection, float newMagnitude, ForceMode newForceMode)
+    public void ApplyForce(Vector3 newDirection, float newMagnitude, ForceMode newForceMode, RobotArmPlacement armPlacement)
     {
 
         if (debugActive) 
@@ -122,6 +133,8 @@ public class PlayerPhysics : MonoBehaviour
         Vector3 newForce = newDirection * newMagnitude;
 
         rb.AddForce(newForce, newForceMode);
+
+        //RobotManager.Instance.robotAnimation.UpdateArmAnimationState(armPlacement, (int)armAnimationStates.Idle,false );
     }
 
     public bool TestPhysicInteraction(SO_PhysicsInteraction interaction, RobotArmPlacement armPlacement)
@@ -193,6 +206,7 @@ public class PlayerPhysics : MonoBehaviour
                     if (rayDistance <= sawHandManager.acquireDistance)
                     {
                         isTestSuccess = true;
+                        FX_Source.PlayOneShot(SawSound);
                     }
 
                 }
@@ -209,6 +223,9 @@ public class PlayerPhysics : MonoBehaviour
     //these are intearction loading for one shot physics
     public void LoadPhysicInteraction(SO_PhysicsInteraction interaction, RobotArmPlacement armPlacement)
     {
+        if (interaction.physicInteraction == physicInteractions.Cannon && Time.time < nextCannonFireTime)
+            return;
+
         if (debugActive)
         {
             Debug.Log("<color=yellow>Loading: "+interaction.name+"</color>");
@@ -221,15 +238,20 @@ public class PlayerPhysics : MonoBehaviour
         if (interaction.physicInteraction == physicInteractions.Jump)
         {
             //apply jump force in vertical direction
-            ApplyForce(interaction.distance, interaction.magnitude, interaction.forceMode);
+            ApplyForce(interaction.distance, interaction.magnitude, interaction.forceMode, armPlacement);
+            FX_Source.PlayOneShot(jumpSound);
         }
         #endregion
 
         #region Cannon
         if (interaction.physicInteraction == physicInteractions.Cannon)
         {
+            nextCannonFireTime = Time.time + 1f;
             //apply cannon force in direction that is oposite to where camera is pointing
-            ApplyForce(-1*myCamera.gameObject.transform.forward, interaction.magnitude, interaction.forceMode);
+            ApplyForce(-1*myCamera.gameObject.transform.forward, interaction.magnitude, interaction.forceMode, armPlacement);
+            FX_Source.PlayOneShot(cannonSound);
+            RobotManager.Instance.robotAnimation.UpdateArmAnimationState(armPlacement, (int)armAnimationStates.Cannon, false);
+            RobotManager.Instance.robotAnimation.callDelayedAnimationUpdate(armPlacement,(int)armAnimationStates.Idle, false);
         }
         #endregion
 
@@ -262,6 +284,8 @@ public class PlayerPhysics : MonoBehaviour
                 {
                     //first press, spawn projectile using camera data
                     stickyScr.SpawnProjectile(myCamera.gameObject.transform.forward);
+                    FX_Source.PlayOneShot(hookSound);
+                    RobotManager.Instance.robotAnimation.UpdateArmAnimationState(armPlacement, (int)armAnimationStates.Claw, true);
                 }
                 else//second state, feed direction and apply force
                 {
@@ -269,8 +293,9 @@ public class PlayerPhysics : MonoBehaviour
                     //get transform data and load physic interaction
                     Vector3 stickyDirection = (stickyScr.worldPivot.transform.position - stickyScr.armPivot.transform.position).normalized;
                     //apply force that pulls character towards world point of projectile
-                    ApplyForce(stickyDirection, interaction.magnitude, interaction.forceMode);
+                    ApplyForce(stickyDirection, interaction.magnitude, interaction.forceMode, armPlacement);
                     stickyScr.currentProjectile.DestroyProjectile();
+                    RobotManager.Instance.robotAnimation.UpdateArmAnimationState(armPlacement, (int)armAnimationStates.Idle, false);
                 }
             }
 
@@ -281,7 +306,8 @@ public class PlayerPhysics : MonoBehaviour
         if(interaction.physicInteraction == physicInteractions.SawHandJump)
         {
             Vector3 sawJumpDirection = myCamera.transform.forward + interaction.distance;
-            ApplyForce(sawJumpDirection, interaction.magnitude, interaction.forceMode);
+            ApplyForce(sawJumpDirection, interaction.magnitude, interaction.forceMode, armPlacement);
+            RobotManager.Instance.robotAnimation.UpdateArmAnimationState(armPlacement, (int)armAnimationStates.Idle, false);
         }
         #endregion
 

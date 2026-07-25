@@ -17,6 +17,8 @@ public class GroundChecker : MonoBehaviour
         }
         //when landing, reset y velocity to 0
         physicsScr.ResetFallingVelocity();
+
+        
     }
 
     private void OnTriggerStay(Collider other)
