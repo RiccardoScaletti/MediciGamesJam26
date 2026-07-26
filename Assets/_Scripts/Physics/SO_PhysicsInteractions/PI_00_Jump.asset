@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af11d59711dd284081d0cc7de9e1724, type: 3}
   m_Name: PI_00_Jump
   m_EditorClassIdentifier: Assembly-CSharp::SO_PhysicsInteraction
+  physicInteraction: 0
   physicDirectionType: 0
-  magnitude: 750
+  magnitude: 500
   distance: {x: 0, y: 1, z: 0}
   forceMode: 1
+  LeftArmModel: {fileID: 0}
+  RightArmModel: {fileID: 0}
+  armInputMode: 0

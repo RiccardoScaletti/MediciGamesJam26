@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -133,14 +134,31 @@ public class PlayerPhysics : MonoBehaviour
        
     }
 
+    public float horizontalForceMultiplier;
     public void ApplyForce(Vector3 newDirection, float newMagnitude, ForceMode newForceMode, RobotArmPlacement armPlacement)
     {
+        //normalize input direction
+        Vector3 normalizedDirection = newDirection.normalized;
+        //esperate into xz and y directions
+        Vector3 horizontalDirection = Vector3.ProjectOnPlane(normalizedDirection, Vector3.up);
+        Vector3 verticalDirection = Vector3.up * normalizedDirection.y;
+
+        //calculate the new force
+        Vector3 newForce = 
+            horizontalDirection * horizontalForceMultiplier * newMagnitude +
+            verticalDirection * newMagnitude;
+
 
         if (debugActive) 
         {
-            Debug.Log("Direction: " + newDirection + "\nMagnitude: " + newMagnitude + "\nForceMode: " + newForceMode);
+            Debug.Log(
+                "XZ Direction: " + horizontalDirection + 
+                "\n Horizontal Magnitude: " + (newMagnitude * horizontalForceMultiplier) + 
+                "\n Y Direction: "+ verticalDirection +
+                "\n Vertical Magnitude: " + newMagnitude +
+                "\nForceMode: " + newForceMode);
         }
-        Vector3 newForce = newDirection * newMagnitude;
+        
 
         rb.AddForce(newForce, newForceMode);
 
@@ -199,29 +217,30 @@ public class PlayerPhysics : MonoBehaviour
             //let player cast raycast if they are grounded
             if (groundCheck.isGrounded) 
             {
-                //Raycast out of camera , if distance is acceptable, attach.
-                Vector3 rayOrigin = myCamera.transform.position;
-                Vector3 rayDirection = myCamera.transform.forward;
-                RaycastHit hit;
+                ////Raycast out of camera , if distance is acceptable, attach.
+                //Vector3 rayOrigin = myCamera.transform.position;
+                //Vector3 rayDirection = myCamera.transform.forward;
+                //RaycastHit hit;
 
 
-                //Fire Raycast
-                if (Physics.Raycast(rayOrigin, rayDirection, out hit, 100f))
-                {
-                    //extract distance from the camera to the hit object
-                    float rayDistance = hit.distance;
-                    Debug.Log(hit.collider.name + " hit: " + rayDistance);
+                ////Fire Raycast
+                //if (Physics.Raycast(rayOrigin, rayDirection, out hit, 100f))
+                //{
+                //    //extract distance from the camera to the hit object
+                //    float rayDistance = hit.distance;
+                //    Debug.Log(hit.collider.name + " hit: " + rayDistance);
 
-                    //check if raycast distance is within range of sawmanager
-                    if (rayDistance <= sawHandManager.acquireDistance)
-                    {
-                        isTestSuccess = true;
-                        FX_Source.PlayOneShot(SawSound);
-                    }
+                //    //check if raycast distance is within range of sawmanager
+                //    if (rayDistance <= sawHandManager.acquireDistance)
+                //    {
+                //        isTestSuccess = true;
+                //        FX_Source.PlayOneShot(SawSound);
+                //    }
 
-                }
+                //}
 
-
+                isTestSuccess = true;
+                FX_Source.PlayOneShot(SawSound);
             }
             
         }
@@ -262,6 +281,8 @@ public class PlayerPhysics : MonoBehaviour
             FX_Source.PlayOneShot(cannonSound);
             RobotManager.Instance.robotAnimation.UpdateArmAnimationState(armPlacement, (int)armAnimationStates.Cannon, false);
             RobotManager.Instance.robotAnimation.callDelayedAnimationUpdate(armPlacement,(int)armAnimationStates.Idle, false);
+
+
         }
         #endregion
 
@@ -301,7 +322,7 @@ public class PlayerPhysics : MonoBehaviour
                 //second state, feed direction and apply force
                 else if (stickySecondState)
                 {
-                    Debug.Log("<color=orange>Sticky Projectile distance code entered");
+                    //Debug.Log("<color=orange>Sticky Projectile distance code entered");
                     //get transform data and load physic interaction
                     //stickyDirection = stickyScr.stickyDirection;
                     //apply force that pulls character towards world point of projectile
@@ -316,6 +337,7 @@ public class PlayerPhysics : MonoBehaviour
                     );
 
                     stickySecondState = false;
+
                 }
             }
             //clear reference
@@ -329,6 +351,7 @@ public class PlayerPhysics : MonoBehaviour
             Vector3 sawJumpDirection = myCamera.transform.forward + interaction.distance;
             ApplyForce(sawJumpDirection, interaction.magnitude, interaction.forceMode, armPlacement);
             RobotManager.Instance.robotAnimation.UpdateArmAnimationState(armPlacement, (int)armAnimationStates.Idle, false);
+
         }
         #endregion
 
@@ -350,5 +373,6 @@ public class PlayerPhysics : MonoBehaviour
         }
         else return false;
     }
-    
+
+
 }
