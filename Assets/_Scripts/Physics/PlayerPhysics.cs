@@ -31,7 +31,8 @@ public class PlayerPhysics : MonoBehaviour
 
     public bool stickySecondState = false;
     public Vector3 stickyDirection;
-    private float nextCannonFireTime;
+    private float nextLeftCannonFireTime;
+    private float nextRightCannonFireTime;
 
     [SerializeField] private float sawMass;
     private float regMass;
@@ -233,7 +234,9 @@ public class PlayerPhysics : MonoBehaviour
     //these are intearction loading for one shot physics
     public void LoadPhysicInteraction(SO_PhysicsInteraction interaction, RobotArmPlacement armPlacement)
     {
-        if (interaction.physicInteraction == physicInteractions.Cannon && Time.time < nextCannonFireTime)
+        if (interaction.physicInteraction == physicInteractions.Cannon &&
+            ((armPlacement == RobotArmPlacement.Left && Time.time < nextLeftCannonFireTime) ||
+             (armPlacement == RobotArmPlacement.Right && Time.time < nextRightCannonFireTime)))
             return;
 
         if (debugActive)
@@ -256,7 +259,10 @@ public class PlayerPhysics : MonoBehaviour
         #region Cannon
         if (interaction.physicInteraction == physicInteractions.Cannon)
         {
-            nextCannonFireTime = Time.time + 1f;
+            if (armPlacement == RobotArmPlacement.Left)
+                nextLeftCannonFireTime = Time.time + 2f;
+            else if (armPlacement == RobotArmPlacement.Right)
+                nextRightCannonFireTime = Time.time + 2f;
             //apply cannon force in direction that is oposite to where camera is pointing
             ApplyForce(-1*myCamera.gameObject.transform.forward, interaction.magnitude, interaction.forceMode, armPlacement);
             FX_Source.PlayOneShot(cannonSound);

@@ -405,6 +405,17 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""1702a2e3-fde7-4e60-9160-7cc7e386fc59"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""1847fd9b-de95-4feb-abac-b7ee13b14ef2"",
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
