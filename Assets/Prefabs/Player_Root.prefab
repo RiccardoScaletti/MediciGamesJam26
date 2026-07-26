@@ -601,6 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e05513e04b3c5245a7238d4d516e4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterController
+  pauseMenuCanvas: {fileID: 0}
   rightArmHeld: 0
   leftArmHeld: 0
 --- !u!54 &3534971936710839601
@@ -653,6 +654,8 @@ MonoBehaviour:
   moveSpeed: 15
   acceleration: 13
   deceleration: 6
+  rollingSource: {fileID: 0}
+  rollingSound: {fileID: 8300000, guid: 0e3e76d5a52d9504d93b2139a0003fb4, type: 3}
   ballRadius: 0.5
   rotationSpeed: 360
   maxBodyTilt: 20
@@ -669,6 +672,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f16ae6faf5818db418f09099e50db8c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPhysics
+  FX_Source: {fileID: 0}
+  cannonSound: {fileID: 8300000, guid: f7aaae9e3e1b6de43bd6592ffdaf7f93, type: 3}
+  hookSound: {fileID: 8300000, guid: 5f1a5c192a9e72040ab58841d0d3b8d5, type: 3}
+  SawSound: {fileID: 8300000, guid: 897d11ec653daa3468d49b0923ebc2a3, type: 3}
+  jumpSound: {fileID: 8300000, guid: 5fd2c3cfa96632840ad8d9132cb06dc1, type: 3}
   debugActive: 1
   fallingSpeedGrowth: 1.5
   fallingTerminalVelocity: -40
@@ -677,6 +685,10 @@ MonoBehaviour:
   coyoteTimer: 0.125
   startAcceleratingLeft: 0
   startAcceleratingRight: 0
+  stickySecondState: 0
+  stickyDirection: {x: 0, y: 0, z: 0}
+  sawMass: 1
+  horizontalForceMultiplier: 5
 --- !u!114 &4910024072243312358
 MonoBehaviour:
   m_ObjectHideFlags: 0
