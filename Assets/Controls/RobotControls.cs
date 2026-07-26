@@ -136,6 +136,15 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PauseMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""b90aeb3f-011c-413e-a56e-9625bf91fca6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -292,6 +301,17 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
                     ""action"": ""RightArm"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""03783004-5da6-4151-9684-d2fffc23d172"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -396,6 +416,17 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""2860eb4a-1078-453c-baa2-c1a3aab7ea55"",
                     ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1702a2e3-fde7-4e60-9160-7cc7e386fc59"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -527,6 +558,7 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         m_RobotActions_Jump = m_RobotActions.FindAction("Jump", throwIfNotFound: true);
         m_RobotActions_LeftArm = m_RobotActions.FindAction("LeftArm", throwIfNotFound: true);
         m_RobotActions_RightArm = m_RobotActions.FindAction("RightArm", throwIfNotFound: true);
+        m_RobotActions_PauseMenu = m_RobotActions.FindAction("PauseMenu", throwIfNotFound: true);
         // UIActions
         m_UIActions = asset.FindActionMap("UIActions", throwIfNotFound: true);
         m_UIActions_SelectRight = m_UIActions.FindAction("SelectRight", throwIfNotFound: true);
@@ -625,6 +657,7 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_RobotActions_Jump;
     private readonly InputAction m_RobotActions_LeftArm;
     private readonly InputAction m_RobotActions_RightArm;
+    private readonly InputAction m_RobotActions_PauseMenu;
     /// <summary>
     /// Provides access to input actions defined in input action map "RobotActions".
     /// </summary>
@@ -656,6 +689,10 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "RobotActions/RightArm".
         /// </summary>
         public InputAction @RightArm => m_Wrapper.m_RobotActions_RightArm;
+        /// <summary>
+        /// Provides access to the underlying input action "RobotActions/PauseMenu".
+        /// </summary>
+        public InputAction @PauseMenu => m_Wrapper.m_RobotActions_PauseMenu;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -697,6 +734,9 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
             @RightArm.started += instance.OnRightArm;
             @RightArm.performed += instance.OnRightArm;
             @RightArm.canceled += instance.OnRightArm;
+            @PauseMenu.started += instance.OnPauseMenu;
+            @PauseMenu.performed += instance.OnPauseMenu;
+            @PauseMenu.canceled += instance.OnPauseMenu;
         }
 
         /// <summary>
@@ -723,6 +763,9 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
             @RightArm.started -= instance.OnRightArm;
             @RightArm.performed -= instance.OnRightArm;
             @RightArm.canceled -= instance.OnRightArm;
+            @PauseMenu.started -= instance.OnPauseMenu;
+            @PauseMenu.performed -= instance.OnPauseMenu;
+            @PauseMenu.canceled -= instance.OnPauseMenu;
         }
 
         /// <summary>
@@ -1045,6 +1088,13 @@ public partial class @RobotControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRightArm(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "PauseMenu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPauseMenu(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UIActions" which allows adding and removing callbacks.
