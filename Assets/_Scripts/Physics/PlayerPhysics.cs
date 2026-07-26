@@ -63,7 +63,7 @@ public class PlayerPhysics : MonoBehaviour
             }
         }
 
-        regMass = rb.mass;
+       
 
         Instantiate(Resources.Load<GameObject>("CanvasHUD"));
 
@@ -130,10 +130,12 @@ public class PlayerPhysics : MonoBehaviour
 
     private void LoadSawArmJump()
     {
-        rb.mass = regMass;
+        
         LoadPhysicInteraction(PhysicsInteractionManager.instance.interactionsList[4], RobotArmPlacement.Terminator);
        
     }
+
+   
 
     public float horizontalForceMultiplier;
     public void ApplyForce(Vector3 newDirection, float newMagnitude, ForceMode newForceMode, RobotArmPlacement armPlacement)
