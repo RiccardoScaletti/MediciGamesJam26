@@ -6252,49 +6252,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2273014169858080477, guid: e24317c23ffea914095c43d9e372de27, type: 3}
-      propertyPath: sawMass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2273014169858080477, guid: e24317c23ffea914095c43d9e372de27, type: 3}
-      propertyPath: SawSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 897d11ec653daa3468d49b0923ebc2a3, type: 3}
-    - target: {fileID: 2273014169858080477, guid: e24317c23ffea914095c43d9e372de27, type: 3}
       propertyPath: FX_Source
       value: 
       objectReference: {fileID: 919566994}
-    - target: {fileID: 2273014169858080477, guid: e24317c23ffea914095c43d9e372de27, type: 3}
-      propertyPath: hookSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 5f1a5c192a9e72040ab58841d0d3b8d5, type: 3}
-    - target: {fileID: 2273014169858080477, guid: e24317c23ffea914095c43d9e372de27, type: 3}
-      propertyPath: jumpSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 5fd2c3cfa96632840ad8d9132cb06dc1, type: 3}
-    - target: {fileID: 2273014169858080477, guid: e24317c23ffea914095c43d9e372de27, type: 3}
-      propertyPath: cannonSound
-      value: 
-      objectReference: {fileID: 8300000, guid: f7aaae9e3e1b6de43bd6592ffdaf7f93, type: 3}
-    - target: {fileID: 2273014169858080477, guid: e24317c23ffea914095c43d9e372de27, type: 3}
-      propertyPath: debugActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2273014169858080477, guid: e24317c23ffea914095c43d9e372de27, type: 3}
-      propertyPath: horizontalForceMultiplier
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3452868742876298311, guid: e24317c23ffea914095c43d9e372de27, type: 3}
-      propertyPath: rollingSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 0e3e76d5a52d9504d93b2139a0003fb4, type: 3}
     - target: {fileID: 3452868742876298311, guid: e24317c23ffea914095c43d9e372de27, type: 3}
       propertyPath: rollingSource
       value: 
       objectReference: {fileID: 510068438}
-    - target: {fileID: 3534971936710839601, guid: e24317c23ffea914095c43d9e372de27, type: 3}
-      propertyPath: m_LinearDamping
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3821762430456068238, guid: e24317c23ffea914095c43d9e372de27, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.154457

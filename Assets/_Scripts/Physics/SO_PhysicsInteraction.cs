@@ -14,4 +14,7 @@ public class SO_PhysicsInteraction : ScriptableObject
     public GameObject LeftArmModel;
     public GameObject RightArmModel;
     public armInputMode armInputMode;
+    public Sprite spriteIcon;
+    public string armName;
+    public bool hasFillBar;
 }

@@ -148,6 +148,7 @@ public class GameUIController : MonoBehaviour
 
         //give controls back to character
         GameManager.instance.EnableControls();
+        
     }
 
     private void CleanLeftArmsSelection()
@@ -321,6 +322,9 @@ public class GameUIController : MonoBehaviour
             default:
                 break;
         }
+
+        RobotManager.Instance.gameHUDCanvas.gameObject.SetActive(true);
+        RobotManager.Instance.gameHUDCanvas.UpdateArmData();
 
     }
 }

@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
         GameEvents.RaiseLevelCompleted();
 
         gameUIControllerScr.ShowChoiceMenu();
+        RobotManager.Instance.gameHUDCanvas.gameObject.SetActive(false);
     }
 
     public void Death()

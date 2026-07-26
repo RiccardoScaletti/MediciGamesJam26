@@ -20,3 +20,5 @@ MonoBehaviour:
   LeftArmModel: {fileID: 3490363452275816724, guid: 04fd2e95711ba554b83cb8cc90bc2903, type: 3}
   RightArmModel: {fileID: 3490363452275816724, guid: c5d3bc9f24828434ea860e8291fc27d9, type: 3}
   armInputMode: 0
+  spriteIcon: {fileID: -1701583232, guid: c0f272d753014614c9b6b36bad891761, type: 3}
+  armName: H-00-K

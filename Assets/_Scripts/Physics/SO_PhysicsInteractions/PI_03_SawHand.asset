@@ -20,3 +20,5 @@ MonoBehaviour:
   LeftArmModel: {fileID: 3490363452275816724, guid: 05895b90b7516314fb4f12b180966ccd, type: 3}
   RightArmModel: {fileID: 6440467763233942354, guid: 927d36b9bd905c349bf86aa4319fe389, type: 3}
   armInputMode: 1
+  spriteIcon: {fileID: 229896166, guid: 751967a504d1cdf4f93e99f0ffe6bf37, type: 3}
+  armName: SK8
