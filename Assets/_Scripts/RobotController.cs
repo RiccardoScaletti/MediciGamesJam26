@@ -1,9 +1,13 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class RobotController : MonoBehaviour
 {
     private RobotControls controls;
+
+
+    [SerializeField] private GameObject pauseMenuCanvas;
 
     public Vector2 MoveInput { get; private set; }
     public Vector2 RotateInput { get; private set; }
@@ -33,9 +37,28 @@ public class RobotController : MonoBehaviour
         controls.RobotActions.LeftArm.started += LeftArm_started;
         controls.RobotActions.LeftArm.performed += LeftArm_performed;
         controls.RobotActions.LeftArm.canceled += LeftArm_canceled;
+
+        controls.RobotActions.PauseMenu.performed += OnPause;
+        controls.RobotActions.PauseMenu.canceled += OnPause;
     }
 
-    
+    private void OnPause(InputAction.CallbackContext context)
+    {
+        pauseMenuCanvas.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        controls.RobotActions.Move.performed -= OnMove;
+        controls.RobotActions.Move.canceled -= OnMove;
+
+        controls.RobotActions.Rotate.performed -= OnRotate;
+        controls.RobotActions.Rotate.canceled -= OnRotate;
+
+        controls.RobotActions.Jump.performed -= OnJump;
+        controls.RobotActions.Disable();
+    }
+
 
     private void LeftArm_started(InputAction.CallbackContext obj)
     {
@@ -125,17 +148,7 @@ public class RobotController : MonoBehaviour
         PhysicsInteractionManager.instance.ResetInteractionReference(RobotArmPlacement.Right);
     }
 
-    private void OnDisable()
-    {
-        controls.RobotActions.Move.performed -= OnMove;
-        controls.RobotActions.Move.canceled -= OnMove;
-
-        controls.RobotActions.Rotate.performed -= OnRotate;
-        controls.RobotActions.Rotate.canceled -= OnRotate;
-
-        controls.RobotActions.Jump.performed -= OnJump;
-        controls.RobotActions.Disable();
-    }
+ 
 
     private void OnDestroy()
     {

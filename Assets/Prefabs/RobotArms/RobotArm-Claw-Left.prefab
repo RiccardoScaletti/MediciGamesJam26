@@ -252,11 +252,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StickyHandManager
   armPivot: {fileID: 4509072173742690445}
   worldPivot: {fileID: 0}
-  grappleHandObject: {fileID: 7016758164133965610}
-  currentProjectile: {fileID: 0}
+  stickyDirection: {x: 0, y: 0, z: 0}
+  projectileLifetime: 0
+  projectileDestroyDelay: 0
   isProjectileAlive: 0
   isProjectileCollided: 0
-  projectileSpeed: 20
+  currentProjectile: {fileID: 0}
+  projectileSpeed: 60
+  grappleHandObject: {fileID: 7016758164133965610}
   armRender: {fileID: 3555305952896120834}
 --- !u!1 &5203175059098885991
 GameObject:
