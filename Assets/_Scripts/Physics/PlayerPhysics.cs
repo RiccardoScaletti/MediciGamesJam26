@@ -98,7 +98,7 @@ public class PlayerPhysics : MonoBehaviour
         //apply acceleration force here
         if (startAcceleratingLeft)
         {
-            rb.mass = sawMass;
+            //rb.mass = sawMass;
             SO_PhysicsInteraction leftInteraction = PhysicsInteractionManager.instance.interactionLoadedLeft;
             ApplyForce(accelerationDirection, leftInteraction.magnitude, leftInteraction.forceMode, RobotArmPlacement.Left);
             RobotManager.Instance.robotAnimation.UpdateArmAnimationState(RobotArmPlacement.Left, (int)armAnimationStates.Saw, true);
@@ -112,7 +112,7 @@ public class PlayerPhysics : MonoBehaviour
         }
         if (startAcceleratingRight)
         {
-            rb.mass = sawMass;
+            //rb.mass = sawMass;
             SO_PhysicsInteraction rightIntearction = PhysicsInteractionManager.instance.interactionLoadedRight;
             ApplyForce(accelerationDirection, rightIntearction.magnitude, rightIntearction.forceMode, RobotArmPlacement.Right);
             RobotManager.Instance.robotAnimation.UpdateArmAnimationState(RobotArmPlacement.Right, (int)armAnimationStates.Saw,true);
